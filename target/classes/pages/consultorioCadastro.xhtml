@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<ui:composition template="/templates/estrutura.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{consultorioBean.carregarCadastro}"
+				type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<h:panelGrid columns="2">
+			<h:graphicImage value="/images/consultorioPesquisa.png" />
+			<h1>CONSULTÓRIO</h1>
+		</h:panelGrid>
+
+		<h:form>
+			<div align="center">
+
+				<h:panelGrid columns="1">
+
+					<p:commandButton value="Salvar" title="Salvar" icon="salvar"
+						actionListener="#{consultorioBean.salvar()}" update=":msgGlobal" />
+
+				</h:panelGrid>
+			</div>
+
+			<p:separator />
+
+			<p:tabView>
+
+				<p:tab title="Dados Gerais">
+
+
+					<h:panelGrid columns="2">
+						<p:outputLabel value="Razão Social:" />
+						<p:inputText
+							value="#{consultorioBean.consultorioCadastro.razaoSocial}"
+							size="60" />
+					</h:panelGrid>
+
+					<h:panelGrid columns="4">
+						<p:outputLabel value="Nome Fantasia:" />
+						<p:inputText
+							value="#{consultorioBean.consultorioCadastro.nomeFantasia}"
+							size="37" />
+
+						<p:outputLabel value="Data de Abertura:" />
+						<p:calendar
+							value="#{pacienteBean.pacienteCadastro.dataRetornoPrevencao}"
+							size="8" locale="pt_BR" />
+					</h:panelGrid>
+
+					<h:panelGrid columns="4">
+						<p:outputLabel value="Endereço:" />
+						<p:inputText maxlength="200" size="55"
+							value="#{consultorioBean.consultorioCadastro.endereco}" />
+						<p:outputLabel value="Nº:" />
+						<p:inputText maxlength="6" size="6"
+							value="#{consultorioBean.consultorioCadastro.numero}" />
+					</h:panelGrid>
+
+					<h:panelGrid columns="6">
+						<p:outputLabel value="Compl.:" />
+						<p:inputText maxlength="50" size="12"
+							value="#{consultorioBean.consultorioCadastro.complemento}" />
+						<p:outputLabel value="Bairro:" />
+						<p:inputText size="32" maxlength="100"
+							value="#{consultorioBean.consultorioCadastro.bairro}" />
+						<p:outputLabel value="CEP:" />
+						<p:inputMask mask="99999-999" maxlength="8" size="10"
+							value="#{consultorioBean.consultorioCadastro.cep}" />
+					</h:panelGrid>
+
+					<h:panelGrid columns="7">
+						<p:outputLabel value="UF:" />
+						<p:selectOneMenu effect="fold" value="#{cidadeBean.cidade.uf}">
+							<f:selectItem itemLabel="UF" itemValue="" />
+							<f:selectItems value="#{UF.uf}" />
+						</p:selectOneMenu>
+						<p:outputLabel value="Cidade:" />
+						<p:autoComplete
+							value="#{consultorioBean.consultorioCadastro.cidade.nome}"
+							maxResults="5" completeMethod="#{cidadeBean.complete}"
+							maxlength="50" size="19" />
+						<p:commandButton title="Nova Cidade" icon="addCidade"
+							onclick="PF('cadCidade').show();" style="border-radius: 40px;" />
+
+						<p:outputLabel value="Telefone:" />
+						<p:inputMask mask="(99) 9999-9999" maxlength="19" size="13"
+							value="#{consultorioBean.consultorioCadastro.telefone}" />
+
+					</h:panelGrid>
+
+
+					<h:panelGrid columns="6">
+						<p:outputLabel value="Início do Atendimento:" />
+						<p:calendar
+							value="#{consultorioBean.consultorioCadastro.horaInicioAtendimento}"
+							pattern="HH:mm" timeOnly="true" size="8" />
+
+						<p:outputLabel value="Início do Almoço:" />
+						<p:calendar
+							value="#{consultorioBean.consultorioCadastro.horaInicioAlmoco}"
+							pattern="HH:mm" timeOnly="true" size="8" />
+
+						<p:outputLabel value="Fim do Almoço:" />
+						<p:calendar
+							value="#{consultorioBean.consultorioCadastro.horaFimAlmoco}"
+							pattern="HH:mm" timeOnly="true" size="8" />
+
+						<p:outputLabel value="Fim do Atendimento:" />
+						<p:calendar
+							value="#{consultorioBean.consultorioCadastro.horaFimAtendimento}"
+							pattern="HH:mm" timeOnly="true" size="8" />
+
+						<p:outputLabel value="Início At. Sábado:" />
+						<p:calendar
+							value="#{consultorioBean.consultorioCadastro.horaInicioSabado}"
+							pattern="HH:mm" timeOnly="true" size="8" />
+
+						<p:outputLabel value="Fim At. Sábado:" />
+						<p:calendar
+							value="#{consultorioBean.consultorioCadastro.horaFimSabado}"
+							pattern="HH:mm" timeOnly="true" size="8" />
+
+					</h:panelGrid>
+
+
+					<h:panelGrid columns="3">
+						<p:outputLabel value="Proprietário:" />
+						<p:autoComplete
+							value="#{consultorioBean.consultorioCadastro.proprietario.pessoa.nome}"
+							maxResults="5" completeMethod="#{pessoaBean.complete}"
+							maxlength="50" size="35" />
+						<p:commandButton title="Nova Cidade" icon="info"
+							onclick="PF('info').show();" style="border-radius: 40px;" />
+					</h:panelGrid>
+
+				</p:tab>
+
+			</p:tabView>
+
+		</h:form>
+
+		<p:dialog widgetVar="cadCidade" modal="true" appendTo="@(body)"
+			header="Cadastro de Cidade" resizable="false">
+			<h:form>
+				<h:panelGrid columns="2">
+					<p:outputLabel value="Nome Cidade" />
+					<p:inputText value="#{cidadeBean.cidade.nome}" />
+					<p:outputLabel value="UF" />
+					<p:selectOneMenu effect="fold" value="#{cidadeBean.cidade.uf}">
+						<f:selectItem itemLabel="" itemValue="" />
+						<f:selectItems value="#{UF.uf}" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar" icon="salvar"
+						actionListener="#{cidadeBean.salvar()}"
+						oncomplete="PF('cadCidade').hide();" />
+					<p:commandButton value="Cancelar" icon="cancelar"
+						onclick="PF('cadCidade').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+		<p:dialog header="Ajuda" widgetVar="info" modal="true"
+			appendTo="@(body)" resizable="false">
+			<h3>O Proprétário deve ser um Dentista já Cadastrado!<br/>
+				Comece a digitar o nome do dentista,<br />que o sistema buscará para
+				você!
+			</h3>
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>
+
+</html>

@@ -1,0 +1,73 @@
+@CHARSET "UTF-8";
+
+.ui-widget, .ui-widget .ui-widget {
+	font-size: 96%;
+}
+
+#img {
+	opacity: 0.2;
+	filter: alpha(opacity = 2);
+}
+
+.novo {
+	background-image: url('../images/novo.png') !important;
+}
+
+.editar {
+	background-image: url('../images/editar.png') !important;
+}
+
+.excluir {
+	background-image: url('../images/excluir.png') !important;
+}
+
+.voltar {
+	background-image: url('../images/voltar.png') !important;
+}
+
+.salvar {
+	background-image: url('../images/salvar.png') !important;
+}
+
+.paciente {
+	background-image: url('../images/paciente.png') !important;
+}
+
+.dentista {
+	background-image: url('../images/dentista.png') !important;
+}
+
+.usuario {
+	background-image: url('../images/usuarios.png') !important;
+}
+
+.consultorio {
+	background-image: url('../images/consultorio.png') !important;
+}
+
+.procedimento {
+	background-image: url('../images/procedimento.png') !important;
+}
+
+.addCidade {
+	background-image: url('../images/novo.png') !important;
+}
+
+.info {
+	background-image: url('../images/help.png') !important;
+}
+
+.cancelar {
+	background-image: url('../images/cancel.png') !important;
+}
+
+.divLogin {
+	border: 1px solid !important;
+	border-color: #c0c0c0 !important;
+	border-radius: 5px;
+}
+
+.label {
+	font-weight: bold;
+	font-size: 20%;
+}

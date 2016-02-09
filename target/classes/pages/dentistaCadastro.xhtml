@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<ui:composition template="/templates/estrutura.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="dentistaAcao" value="#{dentistaBean.acao}" />
+			<f:viewParam name="dentistaCod" value="#{dentistaBean.id}" />
+			<f:event listener="#{dentistaBean.carregarCadastro}"
+				type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<h:panelGrid columns="2">
+			<h:graphicImage value="/images/dentistaPesquisa.png" />
+			<h1>DENTISTAS</h1>
+		</h:panelGrid>
+		<h:form id="frmCadDentista">
+
+			<br />
+			<div align="center">
+				<h:panelGrid columns="5">
+
+					<p:commandButton value="Novo" title="Novo" icon="novo"
+						update=":frmCadDentista:tabCadDentista"
+						actionListener="#{dentistaBean.novo()}"
+						rendered="#{dentistaBean.acao == 'Novo'}" />
+
+					<p:commandButton value="Salvar" title="Salvar" icon="salvar"
+						actionListener="#{dentistaBean.salvar}"
+						rendered="#{dentistaBean.acao == 'Novo'}"
+						update=":msgGlobal :frmCadDentista" />
+
+					<p:button value="Voltar" title="Voltar" icon="voltar"
+						outcome="/pages/dentistaPesquisa.xhtml" />
+
+					<p:commandButton value="Excluir" icon="excluir"
+						actionListener="#{dentistaBean.excluir()}" update=":msgGlobal"
+						rendered="#{dentistaBean.acao == 'Excluir'}" />
+
+					<p:commandButton value="Salvar" icon="salvar"
+						actionListener="#{dentistaBean.editar()}"
+						rendered="#{dentistaBean.acao == 'Editar'}" update=":msgGlobal" />
+				</h:panelGrid>
+			</div>
+			<p:separator />
+
+			<p:tabView id="tabCadDentista">
+				<p:tab title="Dados Gerais">
+					<h:panelGrid columns="2">
+						<p:outputLabel value="Nome Completo:" />
+						<p:inputText size="55" maxlength="255"
+							value="#{dentistaBean.dentistaCadastro.pessoa.nome}"
+							readonly="#{dentistaBean.acao == 'Excluir'}">
+							<f:validateBean />
+						</p:inputText>
+					</h:panelGrid>
+
+					<h:panelGrid columns="7">
+						<p:outputLabel value="CPF:" />
+						<p:inputMask mask="999.999.999-99" size="14"
+							value="#{dentistaBean.dentistaCadastro.pessoa.cpf}"
+							readonly="#{dentistaBean.acao == 'Excluir'}">
+							<f:validateBean />
+						</p:inputMask>
+						<p:outputLabel value="RG:" />
+						<p:inputMask mask="99.999.999-9" size="13"
+							value="#{dentistaBean.dentistaCadastro.pessoa.rg}"
+							readonly="#{dentistaBean.acao == 'Excluir'}" />
+
+						<p:outputLabel value="Sexo:" />
+
+						<p:selectOneMenu effect="fold"
+							value="#{dentistaBean.dentistaCadastro.pessoa.sexo}"
+							disabled="#{dentistaBean.acao == 'Excluir'}" >
+							<f:selectItem itemLabel="Sexo" itemValue=""/>
+							<f:selectItem itemLabel="FEMININO" itemValue="F" />
+							<f:selectItem itemLabel="MASCULINO" itemValue="M" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+
+					<h:panelGrid columns="6">
+						<p:outputLabel value="Data de Nascimento:" />
+						<p:calendar showOn="" mask="true" pattern="dd/mm/yyyy"
+							value="#{dentistaBean.dentistaCadastro.pessoa.dataNascimento}"
+							size="9" locale="pt_BR"
+							readonly="#{dentistaBean.acao == 'Excluir'}" />
+						<p:outputLabel value="Idade:" />
+						<p:inputMask mask="99" maxlength="2" size="4"
+							value="#{dentistaBean.dentistaCadastro.pessoa.idade}"
+							readonly="#{dentistaBean.acao == 'Excluir'}">
+							<f:validateBean />
+						</p:inputMask>
+						<p:outputLabel value="Est.Civil:" />
+						<p:selectOneMenu effect="fold"
+							value="#{dentistaBean.dentistaCadastro.pessoa.estadoCivil}"
+							disabled="#{dentistaBean.acao == 'Excluir'}">
+							<f:selectItem itemLabel="Est. Civil" itemValue="" />
+							<f:selectItems value="#{estadoCivil.estadoCivil}" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+
+
+					<h:panelGrid columns="4">
+						<p:outputLabel value="Endereço:" />
+						<p:inputText maxlength="200" size="55"
+							value="#{dentistaBean.dentistaCadastro.pessoa.endereco}"
+							readonly="#{dentistaBean.acao == 'Excluir'}" />
+						<p:outputLabel value="Nº:" />
+						<p:inputText maxlength="6" size="6"
+							value="#{dentistaBean.dentistaCadastro.pessoa.numero}"
+							readonly="#{dentistaBean.acao == 'Excluir'}" />
+					</h:panelGrid>
+
+					<h:panelGrid columns="6">
+						<p:outputLabel value="Compl.:" />
+						<p:inputText maxlength="50" size="12"
+							value="#{dentistaBean.dentistaCadastro.pessoa.complemento}"
+							readonly="#{dentistaBean.acao == 'Excluir'}" />
+						<p:outputLabel value="Bairro:" />
+						<p:inputText size="32" maxlength="100"
+							value="#{dentistaBean.dentistaCadastro.pessoa.bairro}"
+							readonly="#{dentistaBean.acao == 'Excluir'}" />
+						<p:outputLabel value="CEP:" />
+						<p:inputMask mask="99999-999" maxlength="8" size="10"
+							value="#{dentistaBean.dentistaCadastro.pessoa.cep}"
+							readonly="#{dentistaBean.acao == 'Excluir'}" />
+					</h:panelGrid>
+
+					<h:panelGrid columns="5">
+						<p:outputLabel value="UF:" />
+						<p:selectOneMenu effect="fold"
+							value="#{dentistaBean.dentistaCadastro.pessoa.cidade.uf}"
+							disabled="#{dentistaBean.acao == 'Excluir'}">
+							<f:selectItem itemLabel="UF" itemValue="" />
+							<f:selectItems value="#{UF.uf}" />
+							<f:validateBean />
+						</p:selectOneMenu>
+						<p:outputLabel value="Cidade:" />
+						<p:autoComplete
+							value="#{dentistaBean.dentistaCadastro.pessoa.cidade.nome}"
+							maxResults="5" completeMethod="#{cidadeBean.complete}"
+							maxlength="50" size="19"
+							readonly="#{dentistaBean.acao == 'Excluir'}" />
+						<p:commandButton title="Nova Cidade" icon="addCidade"
+							onclick="PF('cadCidade').show();" style="border-radius: 40px;" readonly="#{dentistaBean.acao == 'Excluir'}"/>
+					</h:panelGrid>
+
+
+					<h:panelGrid columns="6">
+						<p:outputLabel value="Telefone:" />
+						<p:inputMask mask="(99) 9999-9999" maxlength="19" size="13"
+							value="#{dentistaBean.dentistaCadastro.pessoa.telefone}"
+							readonly="#{dentistaBean.acao == 'Excluir'}" />
+						<p:outputLabel value="Celular:" />
+						<p:inputMask mask="(99) 9999-9999" maxlength="19" size="13"
+							value="#{dentistaBean.dentistaCadastro.pessoa.celular}"
+							readonly="#{dentistaBean.acao == 'Excluir'}" />
+						<p:outputLabel value="E-mail:" />
+						<p:inputText maxlength="50" size="30"
+							value="#{dentistaBean.dentistaCadastro.pessoa.email}"
+							readonly="#{dentistaBean.acao == 'Excluir'}" />
+					</h:panelGrid>
+
+					<h:panelGrid columns="4">
+						<p:outputLabel value="Especialidade Principal:" />
+						<p:inputText maxlength="60" size="32"
+							value="#{dentistaBean.dentistaCadastro.especialidadePrincipal}"
+							readonly="#{dentistaBean.acao == 'Excluir'}" />
+						<p:outputLabel value="Especialidade Secundária:" />
+						<p:inputText maxlength="60" size="32"
+							value="#{dentistaBean.dentistaCadastro.especialidadeSecundaria}"
+							readonly="#{dentistaBean.acao == 'Excluir'}" />
+					</h:panelGrid>
+
+					<h:panelGrid columns="8">
+						<p:outputLabel value="Instituição:" />
+						<p:inputText maxlength="100" size="28"
+							value="#{dentistaBean.dentistaCadastro.instituicao}"
+							readonly="#{dentistaBean.acao == 'Excluir'}" />
+						<p:outputLabel value="Data da Formatura:" />
+						<p:calendar showOn="" mask="true" pattern="dd/mm/yyyy"
+							value="#{dentistaBean.dentistaCadastro.anoFormatura}" size="9"
+							locale="pt_BR" readonly="#{dentistaBean.acao == 'Excluir'}" />
+
+						<p:outputLabel value="CRO:" />
+						<p:inputText maxlength="20" size="8"
+							value="#{dentistaBean.dentistaCadastro.cro}"
+							readonly="#{dentistaBean.acao == 'Excluir'}" />
+
+						<p:outputLabel value="UF CRO:" />
+						<p:selectOneMenu effect="fold"
+							value="#{dentistaBean.dentistaCadastro.ufCro}"
+							disabled="#{dentistaBean.acao == 'Excluir'}">
+							<f:selectItem itemLabel="UF" itemValue="" />
+							<f:selectItems value="#{UF.uf}" />
+						</p:selectOneMenu>
+
+					</h:panelGrid>
+				</p:tab>
+
+				<p:tab title="Observações">
+					<p:inputTextarea rows="18" cols="130" autoResize="false"
+						title="Observações"
+						value="#{dentistaBean.dentistaCadastro.pessoa.observacao}"
+						readonly="#{dentistaBean.acao == 'Excluir'}" />
+				</p:tab>
+			</p:tabView>
+		</h:form>
+
+		<p:dialog widgetVar="cadCidade" modal="true" appendTo="@(body)"
+			header="Cadastro de Cidade" resizable="false">
+			<h:form id="cadCidade">
+				<h:panelGrid columns="2">
+					<p:outputLabel value="Nome Cidade" />
+					<p:inputText value="#{cidadeBean.cidade.nome}" />
+					<p:outputLabel value="UF" />
+					<p:selectOneMenu effect="fold" value="#{cidadeBean.cidade.uf}">
+						<f:selectItem itemLabel="UF" itemValue="" />
+						<f:selectItems value="#{UF.uf}" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar" icon="salvar"
+						actionListener="#{cidadeBean.salvar()}"
+						update=":msgGlobal :cadCidade" />
+					<p:commandButton value="Cancelar" icon="cancelar"
+						update=":msgGlobal :cadCidade"
+						oncomplete="PF('cadCidade').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+	</ui:define>
+
+</ui:composition>
+</html>

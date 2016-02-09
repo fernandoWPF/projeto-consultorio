@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<ui:composition template="/templates/estrutura.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="usuarioAcao" value="#{usuarioBean.acao}" />
+			<f:viewParam name="usuarioCod" value="#{usuarioBean.id}" />
+			<f:event listener="#{usuarioBean.carregarCadastro}"
+				type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<h:panelGrid columns="2">
+			<h:graphicImage value="/images/usuarioPesquisa.png" />
+			<h1>USUÁRIOS</h1>
+		</h:panelGrid>
+
+		<h:form>
+			<div align="center">
+
+				<h:panelGrid columns="5">
+
+					<p:commandButton value="Novo" title="Novo" icon="novo"
+						actionListener="#{usuarioBean.novo()}"
+						rendered="#{usuarioBean.acao == 'Novo'}" />
+
+					<p:commandButton value="Salvar" title="Salvar" icon="salvar"
+						actionListener="#{usuarioBean.salvar()}"
+						rendered="#{usuarioBean.acao == 'Novo'}" update=":msgGlobal" />
+
+					<p:button value="Voltar" title="Voltar" icon="voltar"
+						outcome="/pages/usuarioPesquisa.xhtml" />
+
+					<p:commandButton value="Excluir" icon="excluir"
+						actionListener="#{usuarioBean.excluir()}" update=":msgGlobal"
+						rendered="#{usuarioBean.acao == 'Excluir'}"
+						action="/pages/usuarioPesquisa.xhtml" />
+
+					<p:commandButton value="Salvar" icon="salvar"
+						actionListener="#{usuarioBean.editar()}"
+						rendered="#{usuarioBean.acao == 'Editar'}"
+						update=":msgGlobal" />
+				</h:panelGrid>
+			</div>
+			<p:separator />
+			<p:tabView>
+
+				<p:tab title="Dados Gerais">
+
+					<h:panelGrid columns="5">
+						<h:panelGrid columns="2">
+							<p:outputLabel value="Login:" />
+							<p:inputText value="#{usuarioBean.usuarioCadastro.login}" />
+
+							<p:outputLabel value="E-mail:" />
+							<p:inputText value="#{usuarioBean.usuarioCadastro.email}" />
+
+							<p:outputLabel value="Senha:"
+								rendered="#{usuarioBean.acao != 'Excluir'}" />
+							<p:password id="senha"
+								value="#{usuarioBean.usuarioCadastro.senha}" maxlength="6"
+								feedback="true" size="8"
+								promptLabel="Digite uma senha com 6 dígitos" strongLabel="FORTE"
+								weakLabel="FRACO" goodLabel="BOA" match="senha2"
+								validatorMessage="As Senhas não conferem!" redisplay="true"
+								rendered="#{usuarioBean.acao != 'Excluir'}" />
+
+
+							<p:outputLabel value="Confirmação:"
+								rendered="#{usuarioBean.acao != 'Excluir'}" />
+							<p:password id="senha2"
+								value="#{usuarioBean.usuarioCadastro.senha}" maxlength="6"
+								redisplay="true" size="8"
+								rendered="#{usuarioBean.acao != 'Excluir'}" />
+						</h:panelGrid>
+
+					</h:panelGrid>
+				</p:tab>
+
+				<p:tab title="Observações">
+					<p:inputTextarea rows="7" cols="130" autoResize="false"
+						title="Observações" readonly="#{usuarioBean.acao == 'Excluir'}" />
+				</p:tab>
+
+			</p:tabView>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

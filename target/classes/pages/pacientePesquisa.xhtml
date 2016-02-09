@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/templates/estrutura.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{pacienteBean.carregarPesquisa}"
+				type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<h:form>
+			<h:panelGrid columns="2">
+
+				<h:graphicImage value="/images/pacientesPesquisa.png" />
+				<h1>PACIENTES</h1>
+
+			</h:panelGrid>
+
+			<p:dataTable emptyMessage="Sem Registros para Visualizar."
+				value="#{pacienteBean.pacientes}" var="paciente">
+
+				<p:column headerText="Nome" sortBy="#{paciente.pessoa.nome}"
+					filterBy="#{paciente.pessoa.nome}" style="text-align: center;">
+					<h:outputText value="#{paciente.pessoa.nome}" />
+				</p:column>
+
+				<p:column headerText="Telefone"
+					style="text-align: center;width:18%;">
+					<h:outputText value="#{paciente.pessoa.celular}" />
+				</p:column>
+
+				<p:column headerText="Opções" style="text-align: center;width:25%;">
+					<p:button value="Excluir" outcome="/pages/pacienteCadastro"
+						icon="excluir">
+						<f:param name="pacienteAcao" value="Excluir" />
+						<f:param name="pacienteCod" value="#{paciente.id}" />
+					</p:button>
+					<p:button value="Editar" outcome="/pages/pacienteCadastro"
+						icon="editar">
+						<f:param name="pacienteAcao" value="Editar" />
+						<f:param name="pacienteCod" value="#{paciente.id}" />
+					</p:button>
+				</p:column>
+				<f:facet name="footer">
+					<p:button value="Novo" outcome="/pages/pacienteCadastro"
+						icon="novo">
+						<f:param name="pacienteAcao" value="Novo" />
+					</p:button>
+				</f:facet>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

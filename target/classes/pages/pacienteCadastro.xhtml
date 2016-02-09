@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<ui:composition template="/templates/estrutura.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="pacienteAcao" value="#{pacienteBean.acao}" />
+			<f:viewParam name="pacienteCod" value="#{pacienteBean.id}" />
+			<f:event listener="#{pacienteBean.carregarCadastro}"
+				type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form id="frmCadPaciente">
+			<h:panelGrid columns="2">
+				<h:graphicImage value="/images/pacientesPesquisa.png" />
+				<h1>PACIENTES</h1>
+			</h:panelGrid>
+			<div align="center">
+				<h:panelGrid columns="5">
+
+					<p:commandButton value="Novo" title="Novo" icon="novo"
+						update=":frmCadPaciente:tabCadPaciente"
+						actionListener="#{pacienteBean.novo()}"
+						rendered="#{pacienteBean.acao == 'Novo'}" />
+
+					<p:commandButton value="Salvar" title="Salvar" icon="salvar"
+						actionListener="#{pacienteBean.salvar}"
+						rendered="#{pacienteBean.acao == 'Novo'}"
+						update=":msgGlobal :frmCadPaciente" />
+
+					<p:button value="Voltar" title="Voltar" icon="voltar"
+						outcome="/pages/pacientePesquisa.xhtml" />
+
+					<p:commandButton value="Excluir" icon="excluir"
+						actionListener="#{pacienteBean.excluir()}" update=":msgGlobal"
+						rendered="#{pacienteBean.acao == 'Excluir'}" />
+
+					<p:commandButton value="Salvar" icon="salvar"
+						actionListener="#{pacienteBean.editar()}"
+						rendered="#{pacienteBean.acao == 'Editar'}" update=":msgGlobal" />
+				</h:panelGrid>
+			</div>
+
+			<p:separator />
+
+			<p:tabView id="tabCadPaciente">
+				<p:tab title="Dados Gerais">
+					<h:panelGrid columns="2">
+						<p:outputLabel value="Nome Completo:" />
+						<p:inputText size="55" maxlength="255"
+							value="#{pacienteBean.pacienteCadastro.pessoa.nome}"
+							readonly="#{pacienteBean.acao == 'Excluir'}">
+							<f:validateBean />
+						</p:inputText>
+					</h:panelGrid>
+
+					<h:panelGrid columns="7">
+						<p:outputLabel value="CPF:" />
+						<p:inputMask mask="999.999.999-99" size="14"
+							value="#{pacienteBean.pacienteCadastro.pessoa.cpf}"
+							readonly="#{pacienteBean.acao == 'Excluir'}">
+							<f:validateBean />
+						</p:inputMask>
+						<p:outputLabel value="RG:" />
+						<p:inputMask mask="99.999.999-9" size="13"
+							value="#{pacienteBean.pacienteCadastro.pessoa.rg}"
+							readonly="#{pacienteBean.acao == 'Excluir'}" />
+
+						<p:outputLabel value="Sexo:" />
+
+						<p:selectOneMenu effect="fold"
+							value="#{pacienteBean.pacienteCadastro.pessoa.sexo}"
+							disabled="#{pacienteBean.acao == 'Excluir'}">
+							<f:selectItem itemLabel="Sexo" itemValue="" />
+							<f:selectItem itemLabel="FEMININO" itemValue="F" />
+							<f:selectItem itemLabel="MASCULINO" itemValue="M" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+
+					<h:panelGrid columns="6">
+						<p:outputLabel value="Data de Nascimento:" />
+						<p:calendar showOn="" mask="true"
+							value="#{pacienteBean.pacienteCadastro.pessoa.dataNascimento}"
+							size="8" locale="pt_BR"
+							readonly="#{pacienteBean.acao == 'Excluir'}" />
+						<p:outputLabel value="Idade:" />
+						<p:inputMask mask="99" maxlength="2" size="4"
+							value="#{pacienteBean.pacienteCadastro.pessoa.idade}"
+							readonly="#{pacienteBean.acao == 'Excluir'}">
+							<f:validateBean />
+						</p:inputMask>
+						<p:outputLabel value="Est.Civil:" />
+						<p:selectOneMenu effect="fold"
+							value="#{pacienteBean.pacienteCadastro.pessoa.estadoCivil}"
+							disabled="#{pacienteBean.acao == 'Excluir'}">
+							<f:selectItem itemLabel="Est. Civil" itemValue="" />
+							<f:selectItems value="#{estadoCivil.estadoCivil}" />
+							<f:validateBean />
+						</p:selectOneMenu>
+					</h:panelGrid>
+
+
+					<h:panelGrid columns="4">
+						<p:outputLabel value="Endereço:" />
+						<p:inputText maxlength="200" size="55"
+							value="#{pacienteBean.pacienteCadastro.pessoa.endereco}"
+							readonly="#{pacienteBean.acao == 'Excluir'}" />
+						<p:outputLabel value="Nº:" />
+						<p:inputText maxlength="6" size="6"
+							value="#{pacienteBean.pacienteCadastro.pessoa.numero}"
+							readonly="#{pacienteBean.acao == 'Excluir'}" />
+					</h:panelGrid>
+
+					<h:panelGrid columns="6">
+						<p:outputLabel value="Compl.:" />
+						<p:inputText maxlength="50" size="12"
+							value="#{pacienteBean.pacienteCadastro.pessoa.complemento}"
+							readonly="#{pacienteBean.acao == 'Excluir'}" />
+						<p:outputLabel value="Bairro:" />
+						<p:inputText size="32" maxlength="100"
+							value="#{pacienteBean.pacienteCadastro.pessoa.bairro}"
+							readonly="#{pacienteBean.acao == 'Excluir'}" />
+						<p:outputLabel value="CEP:" />
+						<p:inputMask mask="99999-999" maxlength="8" size="10"
+							value="#{pacienteBean.pacienteCadastro.pessoa.cep}"
+							readonly="#{pacienteBean.acao == 'Excluir'}" />
+					</h:panelGrid>
+
+					<h:panelGrid columns="5">
+						<p:outputLabel value="UF:" />
+
+						<p:selectOneMenu effect="fold"
+							value="#{pacienteBean.pacienteCadastro.pessoa.cidade.uf}"
+							disabled="#{pacienteBean.acao == 'Excluir'}">
+							<f:selectItem itemLabel="UF" itemValue="" />
+							<f:selectItems value="#{UF.uf}" />
+							<f:validateBean />
+						</p:selectOneMenu>
+
+
+
+						<p:outputLabel value="Cidade:" />
+						<p:autoComplete
+							value="#{dentistaBean.dentistaCadastro.pessoa.cidade.nome}"
+							maxResults="5" completeMethod="#{cidadeBean.complete}"
+							maxlength="50" size="19"
+							readonly="#{dentistaBean.acao == 'Excluir'}" />
+						<p:commandButton title="Nova Cidade" icon="addCidade"
+							onclick="PF('cadCidade').show();" style="border-radius: 40px;" />
+					</h:panelGrid>
+
+
+					<h:panelGrid columns="6">
+						<p:outputLabel value="Telefone:" />
+						<p:inputMask mask="(99) 9999-9999" maxlength="19" size="13"
+							value="#{pacienteBean.pacienteCadastro.pessoa.telefone}"
+							readonly="#{pacienteBean.acao == 'Excluir'}" />
+						<p:outputLabel value="Celular:" />
+						<p:inputMask mask="(99) 9999-9999" maxlength="19" size="13"
+							value="#{pacienteBean.pacienteCadastro.pessoa.celular}"
+							readonly="#{pacienteBean.acao == 'Excluir'}" />
+						<p:outputLabel value="E-mail:" />
+						<p:inputText maxlength="50" size="30"
+							value="#{pacienteBean.pacienteCadastro.pessoa.email}"
+							readonly="#{pacienteBean.acao == 'Excluir'}" />
+					</h:panelGrid>
+
+
+					<h:panelGrid columns="4">
+						<p:outputLabel value="Nome da Mãe:" />
+						<p:inputText maxlength="255" size="32"
+							value="#{pacienteBean.pacienteCadastro.nomeMae}"
+							readonly="#{pacienteBean.acao == 'Excluir'}" />
+						<p:outputLabel value="Nome do Pai:" />
+						<p:inputText maxlength="255" size="32"
+							value="#{pacienteBean.pacienteCadastro.nomePai}"
+							readonly="#{pacienteBean.acao == 'Excluir'}" />
+
+					</h:panelGrid>
+					<h:panelGrid columns="6">
+						<p:outputLabel value="Escolaridade:" />
+						<p:selectOneMenu effect="fold"
+							value="#{pacienteBean.pacienteCadastro.escolaridade}"
+							disabled="#{pacienteBean.acao == 'Excluir'}">
+							<f:selectItem itemLabel="Escolaridade" itemValue="" />
+							<f:selectItems value="#{escolaridade.escolaridade}" />
+						</p:selectOneMenu>
+						<p:outputLabel value="Empresa onde Trabalha:" />
+						<p:inputText maxlength="100" size="30"
+							value="#{pacienteBean.pacienteCadastro.localTrabalho}"
+							readonly="#{pacienteBean.acao == 'Excluir'}" />
+					</h:panelGrid>
+					<h:panelGrid columns="4">
+						<p:outputLabel value="Profissão:" />
+						<p:inputText maxlength="100" size="30"
+							value="#{pacienteBean.pacienteCadastro.profissao}"
+							readonly="#{pacienteBean.acao == 'Excluir'}" />
+						<p:outputLabel value="Renda Mensal:" />
+						<pe:inputNumber decimalPlaces="2" size="10"
+							value="#{pacienteBean.pacienteCadastro.rendaMensal}"
+							readonly="#{pacienteBean.acao == 'Excluir'}" />
+					</h:panelGrid>
+
+					<h:panelGrid columns="4">
+						<p:outputLabel value="Status Paciente:" />
+						<p:selectOneMenu effect="fold"
+							value="#{pacienteBean.pacienteCadastro.statusPaciente}"
+							disabled="#{pacienteBean.acao == 'Excluir'}">
+							<f:selectItem itemValue="" itemLabel="Status" />
+							<f:selectItems value="#{statusPacienteBean.statusPacientes}" />
+						</p:selectOneMenu>
+						<p:outputLabel value="Retorno de Prevenção:" />
+						<p:calendar
+							value="#{pacienteBean.pacienteCadastro.dataRetornoPrevencao}"
+							size="8" locale="pt_BR"
+							readonly="#{pacienteBean.acao == 'Excluir'}" />
+					</h:panelGrid>
+
+				</p:tab>
+
+				<p:tab title="Observações">
+					<p:inputTextarea rows="22" cols="130" autoResize="false"
+						title="Observações"
+						value="#{pacienteBean.pacienteCadastro.pessoa.observacao}"
+						readonly="#{pacienteBean.acao == 'Excluir'}" />
+				</p:tab>
+			</p:tabView>
+		</h:form>
+		<p:dialog widgetVar="cadCidade" modal="true" appendTo="@(body)"
+			header="Cadastro de Cidade" resizable="false">
+			<h:form>
+				<h:panelGrid columns="2">
+					<p:outputLabel value="Nome Cidade" />
+					<p:inputText value="#{cidadeBean.cidade.nome}"
+						readonly="#{pacienteBean.acao == 'Excluir'}" />
+					<p:outputLabel value="UF" />
+					<p:selectOneMenu effect="fold" value="#{cidadeBean.cidade.uf}"
+						disabled="#{pacienteBean.acao == 'Excluir'}">
+						<f:selectItem itemLabel="" itemValue="" />
+						<f:selectItems value="#{UF.uf}" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar" icon="salvar"
+						actionListener="#{cidadeBean.salvar()}"
+						oncomplete="PF('cadCidade').hide();" />
+					<p:commandButton value="Cancelar" icon="cancelar"
+						onclick="PF('cadCidade').hide();"
+						readonly="#{pacienteBean.acao == 'Excluir'}" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+</html>
