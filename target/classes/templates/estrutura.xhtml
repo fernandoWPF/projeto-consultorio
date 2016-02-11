@@ -25,7 +25,7 @@
 			<div style="background: white;">
 				<h:panelGrid columns="2">
 					<h:form>
-						<h:commandLink action="/pages/principal.xhtml" shape="circle">
+						<h:commandLink action="/pages/principal.xhtml?faces-redirect=true" shape="circle">
 							<h:graphicImage value="/images/Logo.png" />
 						</h:commandLink>
 					</h:form>
@@ -51,7 +51,7 @@
 							outcome="/pages/usuarioPesquisa.xhtml" icon="usuario" />
 						<p:menuitem value="Consultório" icon="consultorio"
 							outcome="/pages/consultorioCadastro.xhtml" />
-						<p:menuitem value="Procedimentos" icon="procedimento" />
+						<p:menuitem value="Procedimentos" icon="procedimento" outcome="/pages/procedimentoPesquisa.xhtml"/>
 					</p:submenu>
 
 					<p:submenu label="FINANCEIRO">
