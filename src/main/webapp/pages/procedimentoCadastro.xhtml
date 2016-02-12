@@ -6,52 +6,81 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:pe="http://primefaces.org/ui/extensions">
+
 <ui:composition template="/templates/estrutura.xhtml">
 
 	<ui:define name="metadata">
 		<f:metadata>
-			<f:viewParam name="dentistaAcao" value="#{dentistaBean.acao}" />
-			<f:viewParam name="dentistaCod" value="#{dentistaBean.id}" />
-			<f:event listener="#{dentistaBean.carregarCadastro}"
+			<f:viewParam name="procedimentoAcao" value="#{procedimentoBean.acao}" />
+			<f:viewParam name="procedimentoCod" value="#{procedimentoBean.id}" />
+			<f:event listener="#{procedimentoBean.carregarCadastro}"
 				type="preRenderView" />
 		</f:metadata>
 	</ui:define>
 
 	<ui:define name="conteudo">
+		<h:panelGrid columns="2">
+			<h:graphicImage value="/images/procedimentoPesquisa.png" />
+			<h1>PROCEDIMENTO</h1>
+		</h:panelGrid>
 
-		<p:dataTable emptyMessage="Sem Registros para Visualizar."
-			value="#{dentistaBean.dentistas}" var="procedimento">
+		<h:form>
+			<div align="center">
 
-			<p:column headerText="Nome" sortBy="#{dentista.pessoa.nome}"
-				filterBy="#{dentista.pessoa.nome}" style="text-align: center;">
-				<h:outputText value="#{dentista.pessoa.nome}" />
-			</p:column>
+				<h:panelGrid columns="5">
 
-			<p:column headerText="Telefone" style="text-align: center;width:18%;">
-				<h:outputText value="#{dentista.pessoa.celular}" />
-			</p:column>
+					<p:commandButton value="Novo" title="Novo" icon="novo"
+						actionListener="#{procedimentoBean.novo()}"
+						rendered="#{procedimentoBean.acao == 'Novo'}" />
 
-			<p:column headerText="Opções" style="text-align: center;width:25%;">
-				<p:button value="Excluir" outcome="/pages/dentistaCadastro"
-					icon="excluir">
-					<f:param name="dentistaAcao" value="Excluir" />
-					<f:param name="dentistaCod" value="#{dentista.id}" />
-				</p:button>
-				<p:button value="Editar" outcome="/pages/dentistaCadastro"
-					icon="editar">
-					<f:param name="dentistaAcao" value="Editar" />
-					<f:param name="dentistaCod" value="#{dentista.id}" />
-				</p:button>
-			</p:column>
+					<p:commandButton value="Salvar" title="Salvar" icon="salvar"
+						actionListener="#{procedimentoBean.salvar()}"
+						rendered="#{procedimentoBean.acao == 'Novo'}" update=":msgGlobal" />
 
-			<f:facet name="footer">
-				<p:button value="Novo" outcome="/pages/dentistaCadastro" icon="novo">
-					<f:param name="dentistaAcao" value="Novo" />
-				</p:button>
-			</f:facet>
-		</p:dataTable>
+					<p:button value="Voltar" title="Voltar" icon="voltar"
+						outcome="/pages/procedimentoPesquisa.xhtml" />
 
+					<p:commandButton value="Excluir" icon="excluir"
+						actionListener="#{procedimentoBean.excluir()}" update=":msgGlobal"
+						rendered="#{procedimentoBean.acao == 'Excluir'}"
+						action="/pages/procedimentoPesquisa.xhtml" />
+
+					<p:commandButton value="Salvar" icon="salvar"
+						actionListener="#{procedimentoBean.editar()}"
+						rendered="#{procedimentoBean.acao == 'Editar'}"
+						update=":msgGlobal" />
+				</h:panelGrid>
+			</div>
+			<p:separator />
+			<p:tabView>
+
+				<p:tab title="Dados Gerais">
+
+
+					<h:panelGrid columns="2">
+						<p:outputLabel value="Descrição:" />
+						<p:inputText
+							value="#{procedimentoBean.procedimentoCadastro.descricao}" />
+
+						<p:outputLabel value="Duração Estimada:" />
+						<p:calendar pattern="HH:mm" timeOnly="true" size="8"
+							value="#{procedimentoBean.procedimentoCadastro.duracaoAprox}" />
+					</h:panelGrid>
+					<h:panelGrid columns="2">
+						<p:outputLabel value="Marcador:" />
+						<p:colorPicker
+							value="#{procedimentoBean.procedimentoCadastro.marcador}" />
+
+
+						<p:outputLabel value="Valor:" />
+						<pe:inputNumber decimalPlaces="2" size="10"
+							value="#{procedimentoBean.procedimentoCadastro.valorProcedimento}" />
+					</h:panelGrid>
+				</p:tab>
+			</p:tabView>
+
+		</h:form>
 	</ui:define>
-
 </ui:composition>
+
 </html>
