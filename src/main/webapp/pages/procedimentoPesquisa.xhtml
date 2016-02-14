@@ -33,7 +33,15 @@
 					style="text-align: center;width:18%;">
 					<h:outputText value="#{procedimento.duracaoAprox}" />
 				</p:column>
+
+				<p:column headerText="Valor" style="text-align: center;width:18%;">
+					<h:outputText value="#{procedimento.valorProcedimento}" />
+				</p:column>
 				
+				<p:column headerText="Marcador:"
+					style="text-align: center;width:18%;">
+					<p:colorPicker value="#{procedimento.marcador}" immediate="false"/>
+				</p:column>
 
 				<p:column headerText="Opções" style="text-align: center;width:25%;">
 					<p:button value="Excluir" outcome="/pages/procedimentoCadastro"
@@ -47,7 +55,7 @@
 						<f:param name="procedimentoCod" value="#{procedimento.id}" />
 					</p:button>
 				</p:column>
-				
+
 				<f:facet name="footer">
 					<p:button value="Novo" outcome="/pages/procedimentoCadastro"
 						icon="novo">
