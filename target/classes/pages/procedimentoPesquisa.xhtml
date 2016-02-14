@@ -25,8 +25,8 @@
 				value="#{procedimentoBean.procedimentos}" var="procedimento">
 
 				<p:column headerText="Descrição" sortBy="#{procedimento.descricao}"
-					filterBy="#{procedimento.descricao}}" style="text-align: center;">
-					<h:outputText value="#{procedimento.descricao}}" />
+					filterBy="#{procedimento.descricao}" style="text-align: center;">
+					<h:outputText value="#{procedimento.descricao}" />
 				</p:column>
 
 				<p:column headerText="Tempo Estimado"
@@ -39,12 +39,12 @@
 					<p:button value="Excluir" outcome="/pages/procedimentoCadastro"
 						icon="excluir">
 						<f:param name="procedimentoAcao" value="Excluir" />
-						<f:param name="procedimentoCod" value="#{procedimentoBean.procedimentoCadastro.id}" />
+						<f:param name="procedimentoCod" value="#{procedimento.id}" />
 					</p:button>
 					<p:button value="Editar" outcome="/pages/procedimentoCadastro"
 						icon="editar">
 						<f:param name="procedimentoAcao" value="Editar" />
-						<f:param name="procedimentoCod" value="#{procedimentoBean.procedimentoCadastro.id}" />
+						<f:param name="procedimentoCod" value="#{procedimento.id}" />
 					</p:button>
 				</p:column>
 				

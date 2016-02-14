@@ -3,6 +3,7 @@ package br.com.consultorio_odontologico.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 @Entity
@@ -26,8 +29,9 @@ public class Procedimento implements Serializable {
 	private Long id;
 	@Column(length = 100)
 	private String descricao;
-	@Column(name = "duracao_aprox", length = 5)
-	private String duracaoAprox;
+	@Temporal(TemporalType.TIME)
+	@Column(name = "duracao_aprox")
+	private Date duracaoAprox;
 	@Column(length = 30)
 	private String marcador;
 	@Column(name = "valor_procedimento")
@@ -57,11 +61,11 @@ public class Procedimento implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public String getDuracaoAprox() {
+	public Date getDuracaoAprox() {
 		return duracaoAprox;
 	}
 
-	public void setDuracaoAprox(String duracaoAprox) {
+	public void setDuracaoAprox(Date duracaoAprox) {
 		this.duracaoAprox = duracaoAprox;
 	}
 
