@@ -37,10 +37,14 @@
 				<p:column headerText="Valor" style="text-align: center;width:18%;">
 					<h:outputText value="#{procedimento.valorProcedimento}" />
 				</p:column>
-				
-				<p:column headerText="Marcador:"
-					style="text-align: center;width:18%;">
-					<p:colorPicker value="#{procedimento.marcador}" immediate="false"/>
+
+				<p:column headerText="Cor:" style="text-align: center;width:5%;">
+					<h:form>
+						<div class="cores"
+							style="background-color: ##{procedimento.marcador};">
+							<p style="color: ##{procedimento.marcador};">Cor</p>
+						</div>
+					</h:form>
 				</p:column>
 
 				<p:column headerText="Opções" style="text-align: center;width:25%;">
