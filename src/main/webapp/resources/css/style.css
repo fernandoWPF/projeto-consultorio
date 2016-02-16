@@ -57,8 +57,23 @@
 	background-image: url('../images/help.png') !important;
 }
 
-.cancelar {
-	background-image: url('../images/cancel.png') !important;
+.home {
+	background-image: url('../images/home.png') !important;
+}
+
+.titulos {
+	background-image: url('../images/titulo.png') !important;
+}
+
+.agenda {
+	background-image: url('../images/agenda.png') !important;
+}
+
+.sair {
+	background-image: url('../images/sair.png') !important;
+}
+.agenda{
+	background-image: url('../images/agendamento.png') !important;
 }
 
 .divLogin {
@@ -72,9 +87,8 @@
 	font-size: 20%;
 }
 
-.cores{
-	border-bottom: 10px;
-	border-left: 10px;
-	border-right: 10px;
-	border-top: 10px;
+.cores {
+	margin: 30%;
+	width: 15px;
+	height: 15px;
 }

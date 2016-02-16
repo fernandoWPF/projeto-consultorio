@@ -43,7 +43,7 @@
 					<p:commandButton value="Excluir" icon="excluir"
 						actionListener="#{procedimentoBean.excluir()}" update=":msgGlobal"
 						rendered="#{procedimentoBean.acao == 'Excluir'}"
-						action="/pages/procedimentoPesquisa.xhtml" />
+						action="/pages/procedimentoPesquisa.xhtml?faces-redirect=true" />
 
 					<p:commandButton value="Salvar" icon="salvar"
 						actionListener="#{procedimentoBean.editar()}"
