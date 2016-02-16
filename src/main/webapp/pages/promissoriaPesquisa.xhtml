@@ -9,7 +9,7 @@
 
 	<ui:define name="metadata">
 		<f:metadata>
-			<f:event listener="#{procedimentoBean.carregarPesquisa}"
+			<f:event listener="#{promissoriaBean.carregarPesquisa}"
 				type="preRenderView" />
 		</f:metadata>
 	</ui:define>
@@ -22,46 +22,30 @@
 			</h:panelGrid>
 
 			<p:dataTable emptyMessage="Sem Registros para Visualizar."
-				value="#{procedimentoBean.procedimentos}" var="procedimento">
+				value="#{promissoriaBean.promissorias}" var="promissoria">
 
-				<p:column headerText="Descrição" sortBy="#{procedimento.descricao}"
-					filterBy="#{procedimento.descricao}" style="text-align: center;">
-					<h:outputText value="#{procedimento.descricao}" />
-				</p:column>
-
-				<p:column headerText="Tempo Estimado"
-					style="text-align: center;width:18%;">
-					<h:outputText value="#{procedimento.duracaoAprox}" />
-				</p:column>
-
-				<p:column headerText="Valor" style="text-align: center;width:18%;">
-					<h:outputText value="#{procedimento.valorProcedimento}" />
-				</p:column>
-
-				<p:column headerText="Cor:" style="text-align: center;width:5%;">
-					<h:form>
-						<div class="cores"
-							style="background-color: ##{procedimento.marcador};"></div>
-					</h:form>
+				<p:column headerText="Número" sortBy="#{promissoria.numPromissoria}"
+					filterBy="#{promissoria.numPromissoria}" style="text-align: center;">
+					<h:outputText value="#{promissoria.numPromissoria}" />
 				</p:column>
 
 				<p:column headerText="Opções" style="text-align: center;width:25%;">
-					<p:button value="Excluir" outcome="/pages/procedimentoCadastro"
+					<p:button value="Excluir" outcome="/pages/promissoriaCadastro"
 						icon="excluir">
-						<f:param name="procedimentoAcao" value="Excluir" />
-						<f:param name="procedimentoCod" value="#{procedimento.id}" />
+						<f:param name="promissoriaAcao" value="Excluir" />
+						<f:param name="promissoriaCod" value="#{procedimento.id}" />
 					</p:button>
-					<p:button value="Editar" outcome="/pages/procedimentoCadastro"
+					<p:button value="Editar" outcome="/pages/promissoriaCadastro"
 						icon="editar">
-						<f:param name="procedimentoAcao" value="Editar" />
-						<f:param name="procedimentoCod" value="#{procedimento.id}" />
+						<f:param name="promissoriaAcao" value="Editar" />
+						<f:param name="promissoriaCod" value="#{procedimento.id}" />
 					</p:button>
 				</p:column>
 
 				<f:facet name="footer">
-					<p:button value="Novo" outcome="/pages/procedimentoCadastro"
+					<p:button value="Novo" outcome="/pages/promissoriaCadastro"
 						icon="novo">
-						<f:param name="procedimentoAcao" value="Novo" />
+						<f:param name="promissoriaAcao" value="Novo" />
 					</p:button>
 				</f:facet>
 			</p:dataTable>
