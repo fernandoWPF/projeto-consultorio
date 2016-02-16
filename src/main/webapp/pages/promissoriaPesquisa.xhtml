@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/templates/estrutura.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{procedimentoBean.carregarPesquisa}"
+				type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form>
+			<h:panelGrid columns="2">
+				<h:graphicImage value="/images/tituloPesquisa.png" />
+				<h1>TÍTULOS A RECEBER</h1>
+			</h:panelGrid>
+
+			<p:dataTable emptyMessage="Sem Registros para Visualizar."
+				value="#{procedimentoBean.procedimentos}" var="procedimento">
+
+				<p:column headerText="Descrição" sortBy="#{procedimento.descricao}"
+					filterBy="#{procedimento.descricao}" style="text-align: center;">
+					<h:outputText value="#{procedimento.descricao}" />
+				</p:column>
+
+				<p:column headerText="Tempo Estimado"
+					style="text-align: center;width:18%;">
+					<h:outputText value="#{procedimento.duracaoAprox}" />
+				</p:column>
+
+				<p:column headerText="Valor" style="text-align: center;width:18%;">
+					<h:outputText value="#{procedimento.valorProcedimento}" />
+				</p:column>
+
+				<p:column headerText="Cor:" style="text-align: center;width:5%;">
+					<h:form>
+						<div class="cores"
+							style="background-color: ##{procedimento.marcador};"></div>
+					</h:form>
+				</p:column>
+
+				<p:column headerText="Opções" style="text-align: center;width:25%;">
+					<p:button value="Excluir" outcome="/pages/procedimentoCadastro"
+						icon="excluir">
+						<f:param name="procedimentoAcao" value="Excluir" />
+						<f:param name="procedimentoCod" value="#{procedimento.id}" />
+					</p:button>
+					<p:button value="Editar" outcome="/pages/procedimentoCadastro"
+						icon="editar">
+						<f:param name="procedimentoAcao" value="Editar" />
+						<f:param name="procedimentoCod" value="#{procedimento.id}" />
+					</p:button>
+				</p:column>
+
+				<f:facet name="footer">
+					<p:button value="Novo" outcome="/pages/procedimentoCadastro"
+						icon="novo">
+						<f:param name="procedimentoAcao" value="Novo" />
+					</p:button>
+				</f:facet>
+			</p:dataTable>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
