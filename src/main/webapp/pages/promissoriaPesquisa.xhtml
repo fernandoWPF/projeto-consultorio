@@ -24,12 +24,38 @@
 			<p:dataTable emptyMessage="Sem Registros para Visualizar."
 				value="#{promissoriaBean.promissorias}" var="promissoria">
 
+				<p:column headerText="Paciente"
+					sortBy="#{promissoria.paciente.pessoa.nome}"
+					filterBy="#{promissoria.paciente.pessoa.nome}"
+					style="text-align: center;width:36%;">
+					<h:outputText value="#{promissoria.paciente.pessoa.nome}" />
+				</p:column>
+
 				<p:column headerText="Número" sortBy="#{promissoria.numPromissoria}"
-					filterBy="#{promissoria.numPromissoria}" style="text-align: center;">
+					style="text-align: center;width:8%;">
 					<h:outputText value="#{promissoria.numPromissoria}" />
 				</p:column>
 
-				<p:column headerText="Opções" style="text-align: center;width:25%;">
+				<p:column headerText="Parc." style="text-align: center;width:5%;">
+					<h:outputText value="#{promissoria.numParcela}" />
+				</p:column>
+
+				<p:column headerText="Qtde. Parc."
+					style="text-align: center;width:5%;">
+					<h:outputText value="#{promissoria.qtdeParcelas}" />
+				</p:column>
+
+				<p:column headerText="Valor" sortBy="#{promissoria.valorTotal}"
+					style="text-align: center;width:10%;">
+					<h:outputText value="#{promissoria.valorTotal}" />
+				</p:column>
+
+				<p:column headerText="Saldo" sortBy="#{promissoria.valorSaldo}"
+					style="text-align: center;width:10%;">
+					<h:outputText value="#{promissoria.valorSaldo}" />
+				</p:column>
+
+				<p:column headerText="Opções" style="text-align: center;width:19%;">
 					<p:button value="Excluir" outcome="/pages/promissoriaCadastro"
 						icon="excluir">
 						<f:param name="promissoriaAcao" value="Excluir" />
@@ -38,6 +64,11 @@
 					<p:button value="Editar" outcome="/pages/promissoriaCadastro"
 						icon="editar">
 						<f:param name="promissoriaAcao" value="Editar" />
+						<f:param name="promissoriaCod" value="#{procedimento.id}" />
+					</p:button>
+					<p:button value="Receber" outcome="/pages/promissoriaCadastro"
+						icon="editar">
+						<f:param name="promissoriaAcao" value="Receber" />
 						<f:param name="promissoriaCod" value="#{procedimento.id}" />
 					</p:button>
 				</p:column>
