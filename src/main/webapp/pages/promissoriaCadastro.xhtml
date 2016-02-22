@@ -19,8 +19,8 @@
 
 	<ui:define name="conteudo">
 		<h:panelGrid columns="2">
-			<h:graphicImage value="/images/prmissoriaPesquisa.png" />
-			<h1>DENTISTAS</h1>
+			<h:graphicImage value="/images/tituloPesquisa.png" />
+			<h1>TÍTULOS A RECEBER</h1>
 		</h:panelGrid>
 		<h:form id="frmCadPromissoria">
 
@@ -54,72 +54,85 @@
 
 			<p:tabView id="tabCadPromissoria">
 				<p:tab title="Dados Gerais">
-					<h:panelGrid columns="6">
-						<p:outputLabel value="Numero:" />
-						<p:inputText size="8"
-							value="#{promissoriaBean.promissoriaCadastro.numPromissoria}"
-							readonly="#{promissoriaBean.acao == 'Excluir'}">
-							<f:validateBean />
-						</p:inputText>
-						<p:outputLabel value="Nº Parcela:" />
-						<p:inputText size="8"
-							value="#{promissoriaBean.promissoriaCadastro.numParcela}"
-							readonly="#{promissoriaBean.acao == 'Excluir'}">
+					<h:panelGrid columns="4">
+						<p:outputLabel value="Nº Título:" />
+						<p:inputText size="8" value="#{promissoriaBean.numeroPromissoria}"
+							readonly="true">
 							<f:validateBean />
 						</p:inputText>
 						<p:outputLabel value="Qtde. Parcela:" />
-						<p:inputText size="8"
+						<pe:inputNumber size="4" maxlength="2"
 							value="#{promissoriaBean.promissoriaCadastro.qtdeParcelas}"
-							readonly="#{promissoriaBean.acao == 'Excluir'}">
+							readonly="#{promissoriaBean.acao == 'Excluir'}"
+							>
 							<f:validateBean />
-						</p:inputText>
+						</pe:inputNumber>
 					</h:panelGrid>
 
-					<h:panelGrid columns="4">
+					<h:panelGrid columns="2">
 						<p:outputLabel value="Paciente:" />
-						<p:inputText size="8"
+						<p:autoComplete size="55"
+							placeholder="Comece a Digitar o Nome do Paciente"
 							value="#{promissoriaBean.promissoriaCadastro.paciente.pessoa.nome}"
-							readonly="#{promissoriaBean.acao == 'Excluir'}">
-							<f:validateBean />
-						</p:inputText>
+							maxResults="8" completeMethod="#{pessoaBean.complete}"
+							readonly="#{promissoriaBean.acao == 'Excluir'}" />
+					</h:panelGrid>
 
-
-						<p:commandButton icon="pesquisar"
-							readonly="#{dentistaBean.acao == 'Excluir'}" />
-
-						<p:outputLabel value="Emissão:" />
+					<h:panelGrid columns="6">
+						<p:outputLabel value=" Data Emissão:" />
+						
 						<p:calendar showOn="" mask="true" pattern="dd/mm/yyyy"
 							value="#{promissoriaBean.promissoriaCadastro.dataEmissao}"
 							size="9" locale="pt_BR"
+							readonly="#{promissoriaBean.acao == 'Excluir'}"/>
+
+						<p:outputLabel value="Valor Total:" />
+						<pe:inputNumber decimalPlaces="2" size="10"
+							value="#{promissoriaBean.promissoriaCadastro.valorTotal}"
 							readonly="#{promissoriaBean.acao == 'Excluir'}" />
 
+						<p:outputLabel value="Valor Saldo:" />
+						<pe:inputNumber decimalPlaces="2" size="10"
+							value="#{promissoriaBean.promissoriaCadastro.valorSaldo}"
+							readonly="false" />
+
 					</h:panelGrid>
+					<br />
+					<div align="center">
+						<p:commandButton
+							actionListener="#{promissoriaBean.gerarParcelas()}"
+							readonly="#{promissoriaBean.acao == 'Excluir'}" icon="gerar-icon"
+							value="Gerar Parcelas" update=":msgGlobal"/>
+					</div>
+					<br />
+					<p:dataTable emptyMessage="Sem Registros para Visualizar."
+						value="#{promissoriaBean.parcelas}" var="parcela">
+
+						<p:column headerText="Parc." style="text-align: center;width:5%;">
+							<h:outputText value="#{parcela.numParcela}" />
+						</p:column>
+
+						<p:column headerText="Valor" style="text-align: center;width:10%;">
+							<h:outputText value="#{parcela.valorParcela}" />
+						</p:column>
+
+						<p:column headerText="Saldo" style="text-align: center;width:10%;">
+							<h:outputText value="#{parcela.valorSaldoParcela}" />
+						</p:column>
+
+					</p:dataTable>
+
 				</p:tab>
+
+				<p:tab title="Observação">
+					<p:inputTextarea rows="7" cols="130" autoResize="false"
+						value="#{promissoriaBean.promissoriaCadastro.observacao}"
+						title="Observações"
+						readonly="#{promissoriaBean.acao == 'Excluir'}" />
+				</p:tab>
+
 			</p:tabView>
 		</h:form>
-
-		<p:dialog widgetVar="cadCidade" modal="true" appendTo="@(body)"
-			header="Cadastro de Cidade" resizable="false">
-			<h:form id="cadCidade">
-				<h:panelGrid columns="2">
-					<p:outputLabel value="Nome Cidade" />
-					<p:inputText value="#{cidadeBean.cidade.nome}" />
-					<p:outputLabel value="UF" />
-					<p:selectOneMenu effect="fold" value="#{cidadeBean.cidade.uf}">
-						<f:selectItem itemLabel="UF" itemValue="" />
-						<f:selectItems value="#{UF.uf}" />
-					</p:selectOneMenu>
-				</h:panelGrid>
-				<h:panelGrid columns="2">
-					<p:commandButton value="Salvar" icon="salvar"
-						actionListener="#{cidadeBean.salvar()}"
-						update=":msgGlobal :cadCidade" />
-					<p:commandButton value="Cancelar" icon="cancelar"
-						update=":msgGlobal :cadCidade"
-						oncomplete="PF('cadCidade').hide();" />
-				</h:panelGrid>
-			</h:form>
-		</p:dialog>
 
 	</ui:define>
 

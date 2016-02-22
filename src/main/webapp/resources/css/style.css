@@ -75,7 +75,10 @@
 .agenda{
 	background-image: url('../images/agendamento.png') !important;
 }
-
+.gerar-icon{
+	background-image: url('../images/gerar-icon.png') !important;
+	
+}
 .divLogin {
 	border: 1px solid !important;
 	border-color: #c0c0c0 !important;

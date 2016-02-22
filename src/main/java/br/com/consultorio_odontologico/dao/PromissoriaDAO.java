@@ -24,4 +24,17 @@ public class PromissoriaDAO extends GenericDAO<Promissoria> {
 		return query.getResultList();
 	}
 
+	@SuppressWarnings({ "rawtypes" })
+	public Long consultarMaximaNumeracao() {
+
+		TypedQuery query = (TypedQuery) getEntityManager()
+				.createQuery("SELECT MAX(o.numPromissoria) FROM Promissoria o");
+		if ((Long) query.getSingleResult() == null) {
+			return 0L;
+		} else {
+
+			return (Long) query.getSingleResult();
+		}
+	}
+
 }

@@ -24,6 +24,10 @@ import javax.persistence.Transient;
 @Table(name = "tbPromissoria")
 public class Promissoria implements Serializable {
 
+	public Promissoria() {
+		this.paciente = new Paciente();
+	}
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -44,6 +48,15 @@ public class Promissoria implements Serializable {
 	private BigDecimal valorTotal;
 	@Column(name = "valor_saldo", precision = 10, scale = 6)
 	private BigDecimal valorSaldo;
+	@Column(name = "valor_parcela", precision = 10, scale = 6)
+	private BigDecimal valorParcela;
+	@Column(name = "valor_saldo_parcela", precision = 10, scale = 6)
+	private BigDecimal valorSaldoParcela;
+
+	public BigDecimal getValorParcela() {
+		return valorParcela;
+	}
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "status_promissoria", length = 15)
 	private StatusPromissoria statusPromissoria;
@@ -124,6 +137,18 @@ public class Promissoria implements Serializable {
 
 	public StatusPromissoria getStatusPromissoria() {
 		return statusPromissoria;
+	}
+
+	public void setValorParcela(BigDecimal valorParcela) {
+		this.valorParcela = valorParcela;
+	}
+
+	public BigDecimal getValorSaldoParcela() {
+		return valorSaldoParcela;
+	}
+
+	public void setValorSaldoParcela(BigDecimal valorSaldoParcela) {
+		this.valorSaldoParcela = valorSaldoParcela;
 	}
 
 	public void setStatusPromissoria(StatusPromissoria statusPromissoria) {

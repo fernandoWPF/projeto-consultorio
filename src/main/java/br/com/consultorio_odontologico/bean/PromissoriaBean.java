@@ -1,6 +1,8 @@
 package br.com.consultorio_odontologico.bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -17,11 +19,29 @@ public class PromissoriaBean implements Serializable, GenericBean {
 	private static final long serialVersionUID = 1L;
 
 	List<Promissoria> promissorias;
+	List<Promissoria> parcelas;
+
+	public List<Promissoria> getParcelas() {
+		return parcelas;
+	}
+
+	public void setParcelas(List<Promissoria> parcelas) {
+		this.parcelas = parcelas;
+	}
 
 	Promissoria promissoriaCadastro;
 
 	private String acao;
 	private Long id;
+	private Long numeroPromissoria;
+
+	public Long getNumeroPromissoria() {
+		return numeroPromissoria;
+	}
+
+	public void setNumeroPromissoria(Long numeroPromissoria) {
+		this.numeroPromissoria = numeroPromissoria;
+	}
 
 	public List<Promissoria> getPromissorias() {
 		return promissorias;
@@ -109,6 +129,12 @@ public class PromissoriaBean implements Serializable, GenericBean {
 			} else {
 				promissoriaCadastro = new Promissoria();
 			}
+
+			if (acao.equals("Novo")) {
+				PromissoriaDAO dao = new PromissoriaDAO();
+				numeroPromissoria = dao.consultarMaximaNumeracao() + 1;
+			}
+
 		} catch (Exception e) {
 			FacesUtil.addMsgError("Houve um erro ao Carregar o Titulo!\n" + e.getMessage());
 		}
@@ -126,5 +152,27 @@ public class PromissoriaBean implements Serializable, GenericBean {
 		}
 
 	}
+
+	public void gerarParcelas() {
+
+		try {
+			Calendar calendar = Calendar.getInstance();
+			for(int i = 0; i <= promissoriaCadastro.getQtdeParcelas(); i++){
+				
+				calendar.setTime(promissoriaCadastro.getDataEmissao());
+				calendar.add(Calendar.MONTH, i);
+				promissoriaCadastro.setDataVencto(calendar.getTime());
+				promissoriaCadastro.setNumParcela(i);
+				promissoriaCadastro.setValorParcela(promissoriaCadastro.getValorTotal().divide( new BigDecimal(promissoriaCadastro.getQtdeParcelas())));
+				promissoriaCadastro.setValorSaldoParcela(promissoriaCadastro.getValorParcela());
+				parcelas.add(promissoriaCadastro);
+			}
+
+		} catch (Exception e) {
+			FacesUtil.addMsgError("Houve um erro ao Gerar as Parcelas!\n: " + e.getMessage());
+		}
+
+	}
+	
 
 }
