@@ -158,7 +158,6 @@ public class PromissoriaBean implements Serializable, GenericBean {
 		try {
 			Calendar calendar = Calendar.getInstance();
 			for (int i = 1; i <= promissoriaCadastro.getQtdeParcelas(); i++) {
-				System.out.println(i);
 				calendar.setTime(promissoriaCadastro.getDataEmissao());
 				calendar.add(Calendar.MONTH, i);
 				promissoriaCadastro.setDataVencto(calendar.getTime());
