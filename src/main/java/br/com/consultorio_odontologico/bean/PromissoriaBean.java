@@ -167,10 +167,9 @@ public class PromissoriaBean implements Serializable, GenericBean {
 				promissoriaCadastro.setValorSaldoParcela(promissoriaCadastro.getValorParcela());
 				parcelas.add(promissoriaCadastro);
 			}
-
+			
 		} catch (Exception e) {
 			FacesUtil.addMsgError("Houve um erro ao Gerar as Parcelas!\n: " + e.getMessage());
-			e.printStackTrace();
 		}
 
 	}
