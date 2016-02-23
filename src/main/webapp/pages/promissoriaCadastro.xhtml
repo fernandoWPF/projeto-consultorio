@@ -61,10 +61,9 @@
 							<f:validateBean />
 						</p:inputText>
 						<p:outputLabel value="Qtde. Parcela:" />
-						<pe:inputNumber size="4" maxlength="2"
+						<pe:inputNumber size="4" maxlength="2" decimalPlaces="0"
 							value="#{promissoriaBean.promissoriaCadastro.qtdeParcelas}"
-							readonly="#{promissoriaBean.acao == 'Excluir'}"
-							>
+							readonly="#{promissoriaBean.acao == 'Excluir'}">
 							<f:validateBean />
 						</pe:inputNumber>
 					</h:panelGrid>
@@ -80,11 +79,11 @@
 
 					<h:panelGrid columns="6">
 						<p:outputLabel value=" Data Emissão:" />
-						
+
 						<p:calendar showOn="" mask="true" pattern="dd/mm/yyyy"
 							value="#{promissoriaBean.promissoriaCadastro.dataEmissao}"
 							size="9" locale="pt_BR"
-							readonly="#{promissoriaBean.acao == 'Excluir'}"/>
+							readonly="#{promissoriaBean.acao == 'Excluir'}" />
 
 						<p:outputLabel value="Valor Total:" />
 						<pe:inputNumber decimalPlaces="2" size="10"
@@ -102,10 +101,11 @@
 						<p:commandButton
 							actionListener="#{promissoriaBean.gerarParcelas()}"
 							readonly="#{promissoriaBean.acao == 'Excluir'}" icon="gerar-icon"
-							value="Gerar Parcelas" update=":msgGlobal"/>
+							value="Gerar Parcelas" update=":msgGlobal :frmCadPromissoria:tabCadPromissoria:tabParcelas" />
 					</div>
 					<br />
-					<p:dataTable emptyMessage="Sem Registros para Visualizar."
+					<p:dataTable id="tabParcelas"
+						emptyMessage="Sem Registros para Visualizar."
 						value="#{promissoriaBean.parcelas}" var="parcela">
 
 						<p:column headerText="Parc." style="text-align: center;width:5%;">

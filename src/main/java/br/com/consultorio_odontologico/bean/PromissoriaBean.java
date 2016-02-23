@@ -2,6 +2,7 @@ package br.com.consultorio_odontologico.bean;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -19,7 +20,13 @@ public class PromissoriaBean implements Serializable, GenericBean {
 	private static final long serialVersionUID = 1L;
 
 	List<Promissoria> promissorias;
-	List<Promissoria> parcelas;
+	List<Promissoria> parcelas = new ArrayList<>();
+
+	Promissoria promissoriaCadastro;
+
+	private String acao;
+	private Long id;
+	private Long numeroPromissoria;
 
 	public List<Promissoria> getParcelas() {
 		return parcelas;
@@ -28,12 +35,6 @@ public class PromissoriaBean implements Serializable, GenericBean {
 	public void setParcelas(List<Promissoria> parcelas) {
 		this.parcelas = parcelas;
 	}
-
-	Promissoria promissoriaCadastro;
-
-	private String acao;
-	private Long id;
-	private Long numeroPromissoria;
 
 	public Long getNumeroPromissoria() {
 		return numeroPromissoria;
@@ -154,25 +155,25 @@ public class PromissoriaBean implements Serializable, GenericBean {
 	}
 
 	public void gerarParcelas() {
-
 		try {
 			Calendar calendar = Calendar.getInstance();
-			for(int i = 0; i <= promissoriaCadastro.getQtdeParcelas(); i++){
-				
+			for (int i = 1; i <= promissoriaCadastro.getQtdeParcelas(); i++) {
+				System.out.println(i);
 				calendar.setTime(promissoriaCadastro.getDataEmissao());
 				calendar.add(Calendar.MONTH, i);
 				promissoriaCadastro.setDataVencto(calendar.getTime());
 				promissoriaCadastro.setNumParcela(i);
-				promissoriaCadastro.setValorParcela(promissoriaCadastro.getValorTotal().divide( new BigDecimal(promissoriaCadastro.getQtdeParcelas())));
+				promissoriaCadastro.setValorParcela(promissoriaCadastro.getValorTotal()
+						.divide(new BigDecimal(promissoriaCadastro.getQtdeParcelas())));
 				promissoriaCadastro.setValorSaldoParcela(promissoriaCadastro.getValorParcela());
 				parcelas.add(promissoriaCadastro);
 			}
 
 		} catch (Exception e) {
 			FacesUtil.addMsgError("Houve um erro ao Gerar as Parcelas!\n: " + e.getMessage());
+			e.printStackTrace();
 		}
 
 	}
-	
 
 }
