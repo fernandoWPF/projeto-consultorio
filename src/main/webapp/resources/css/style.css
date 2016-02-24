@@ -31,7 +31,14 @@
 
 .paciente {
 	background-image: url('../images/paciente.png') !important;
-	background-size : 100% !important;
+	background-size: 100% !important;
+}
+
+.cadastro {
+	float: right;
+	padding-right: 15%;
+	width: 60%;
+	height: 60%;
 }
 
 .dentista {
@@ -60,7 +67,7 @@
 
 .home {
 	background-image: url('../images/home.png') !important;
-	background-size : 100% !important;
+	background-size: 100% !important;
 }
 
 .titulos {
@@ -74,13 +81,15 @@
 .sair {
 	background-image: url('../images/sair.png') !important;
 }
-.agenda{
+
+.agenda {
 	background-image: url('../images/agendamento.png') !important;
 }
-.gerar-icon{
+
+.gerar-icon {
 	background-image: url('../images/gerar-icon.png') !important;
-	
 }
+
 .divLogin {
 	border: 1px solid !important;
 	border-color: #c0c0c0 !important;
