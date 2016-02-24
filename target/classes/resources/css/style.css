@@ -31,6 +31,7 @@
 
 .paciente {
 	background-image: url('../images/paciente.png') !important;
+	background-size : 100% !important;
 }
 
 .dentista {
@@ -59,6 +60,7 @@
 
 .home {
 	background-image: url('../images/home.png') !important;
+	background-size : 100% !important;
 }
 
 .titulos {
