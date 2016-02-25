@@ -55,6 +55,7 @@
 
 .procedimento {
 	background-image: url('../images/procedimento.png') !important;
+	background-size: 100% !important;
 }
 
 .addCidade {
@@ -72,6 +73,7 @@
 
 .titulos {
 	background-image: url('../images/titulo.png') !important;
+	background-size: 100% !important;
 }
 
 .agenda {
