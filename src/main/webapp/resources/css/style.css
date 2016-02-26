@@ -11,22 +11,27 @@
 
 .novo {
 	background-image: url('../images/novo.png') !important;
+	background-size: 100% !important;
 }
 
 .editar {
 	background-image: url('../images/editar.png') !important;
+	background-size: 100% !important;
 }
 
 .excluir {
 	background-image: url('../images/excluir.png') !important;
+	background-size: 100% !important;
 }
 
 .voltar {
 	background-image: url('../images/voltar.png') !important;
+	background-size: 100% !important;
 }
 
 .salvar {
 	background-image: url('../images/salvar.png') !important;
+	background-size: 100% !important;
 }
 
 .paciente {
@@ -43,14 +48,17 @@
 
 .dentista {
 	background-image: url('../images/dentista.png') !important;
+	background-size: 100% !important;
 }
 
 .usuario {
-	background-image: url('../images/usuarios.png') !important;
+	background-image: url('../images/usuario.png') !important;
+	background-size: 100% !important;
 }
 
 .consultorio {
 	background-image: url('../images/consultorio.png') !important;
+	background-size: 100% !important;
 }
 
 .procedimento {
@@ -60,10 +68,12 @@
 
 .addCidade {
 	background-image: url('../images/novo.png') !important;
+	background-size: 100% !important;
 }
 
 .info {
 	background-image: url('../images/help.png') !important;
+	background-size: 100% !important;
 }
 
 .home {
@@ -78,18 +88,22 @@
 
 .agenda {
 	background-image: url('../images/agenda.png') !important;
+	background-size: 100% !important;
 }
 
 .sair {
 	background-image: url('../images/sair.png') !important;
+	background-size: 100% !important;
 }
 
 .agenda {
 	background-image: url('../images/agendamento.png') !important;
+	background-size: 100% !important;
 }
 
 .gerar-icon {
-	background-image: url('../images/gerar-icon.png') !important;
+	background-image: url('../images/gerar.png') !important;
+	background-size: 100% !important;
 }
 
 .divLogin {
