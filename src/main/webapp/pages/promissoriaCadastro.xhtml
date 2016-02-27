@@ -56,13 +56,13 @@
 				<p:tab title="Dados Gerais">
 					<h:panelGrid columns="4">
 						<p:outputLabel value="Nº Título:" />
-						<p:inputText size="8" value="#{promissoriaBean.numeroPromissoria}"
+						<p:inputText size="8" value="#{promissoriaBean.numPromissoria}"
 							readonly="true">
 							<f:validateBean />
 						</p:inputText>
 						<p:outputLabel value="Qtde. Parcela:" />
 						<pe:inputNumber size="4" maxlength="2" decimalPlaces="0"
-							value="#{promissoriaBean.promissoriaCadastro.qtdeParcelas}"
+							value="#{promissoriaBean.qtdeParcelas}"
 							readonly="#{promissoriaBean.acao == 'Excluir'}">
 							<f:validateBean />
 						</pe:inputNumber>
@@ -72,28 +72,23 @@
 						<p:outputLabel value="Paciente:" />
 						<p:autoComplete size="55"
 							placeholder="Comece a Digitar o Nome do Paciente"
-							value="#{promissoriaBean.promissoriaCadastro.paciente.pessoa.nome}"
+							value="#{promissoriaBean.paciente.pessoa.nome}"
 							maxResults="8" completeMethod="#{pessoaBean.complete}"
 							readonly="#{promissoriaBean.acao == 'Excluir'}" />
 					</h:panelGrid>
 
-					<h:panelGrid columns="6">
+					<h:panelGrid columns="4">
 						<p:outputLabel value=" Data Emissão:" />
 
 						<p:calendar showOn="" mask="true" pattern="dd/mm/yyyy"
-							value="#{promissoriaBean.promissoriaCadastro.dataEmissao}"
+							value="#{promissoriaBean.dataEmissao}"
 							size="9" locale="pt_BR"
 							readonly="#{promissoriaBean.acao == 'Excluir'}" />
 
 						<p:outputLabel value="Valor Total:" />
 						<pe:inputNumber decimalPlaces="2" size="10"
-							value="#{promissoriaBean.promissoriaCadastro.valorTotal}"
+							value="#{promissoriaBean.valorTotal}"
 							readonly="#{promissoriaBean.acao == 'Excluir'}" />
-
-						<p:outputLabel value="Valor Saldo:" />
-						<pe:inputNumber decimalPlaces="2" size="10"
-							value="#{promissoriaBean.promissoriaCadastro.valorSaldo}"
-							readonly="false" />
 
 					</h:panelGrid>
 					<br />

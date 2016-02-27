@@ -2,14 +2,17 @@ package br.com.consultorio_odontologico.bean;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import br.com.consultorio_odontologico.dao.PromissoriaDAO;
+import br.com.consultorio_odontologico.domain.Paciente;
 import br.com.consultorio_odontologico.domain.Promissoria;
 import br.com.consultorio_odontologico.util.FacesUtil;
 
@@ -23,10 +26,57 @@ public class PromissoriaBean implements Serializable, GenericBean {
 	List<Promissoria> parcelas = new ArrayList<>();
 
 	Promissoria promissoriaCadastro;
+	Long numPromissoria;
+	Integer qtdeParcelas;
+	Paciente paciente;
+	Date dataEmissao;
+	BigDecimal valorTotal;
 
 	private String acao;
 	private Long id;
-	private Long numeroPromissoria;
+
+	public Long getNumPromissoria() {
+		return numPromissoria;
+	}
+
+	public void setNumPromissoria(Long numPromissoria) {
+		this.numPromissoria = numPromissoria;
+	}
+
+	public Integer getQtdeParcelas() {
+		return qtdeParcelas;
+	}
+
+	public void setQtdeParcelas(Integer qtdeParcelas) {
+		this.qtdeParcelas = qtdeParcelas;
+	}
+
+	public Paciente getPaciente() {
+		if (paciente == null) {
+			paciente = new Paciente();
+		}
+		return paciente;
+	}
+
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
+	}
+
+	public Date getDataEmissao() {
+		return dataEmissao;
+	}
+
+	public void setDataEmissao(Date dataEmissao) {
+		this.dataEmissao = dataEmissao;
+	}
+
+	public BigDecimal getValorTotal() {
+		return valorTotal;
+	}
+
+	public void setValorTotal(BigDecimal valorTotal) {
+		this.valorTotal = valorTotal;
+	}
 
 	public List<Promissoria> getParcelas() {
 		return parcelas;
@@ -34,14 +84,6 @@ public class PromissoriaBean implements Serializable, GenericBean {
 
 	public void setParcelas(List<Promissoria> parcelas) {
 		this.parcelas = parcelas;
-	}
-
-	public Long getNumeroPromissoria() {
-		return numeroPromissoria;
-	}
-
-	public void setNumeroPromissoria(Long numeroPromissoria) {
-		this.numeroPromissoria = numeroPromissoria;
 	}
 
 	public List<Promissoria> getPromissorias() {
@@ -133,7 +175,7 @@ public class PromissoriaBean implements Serializable, GenericBean {
 
 			if (acao.equals("Novo")) {
 				PromissoriaDAO dao = new PromissoriaDAO();
-				numeroPromissoria = dao.consultarMaximaNumeracao() + 1;
+				numPromissoria = dao.consultarMaximaNumeracao() + 1;
 			}
 
 		} catch (Exception e) {
@@ -156,20 +198,32 @@ public class PromissoriaBean implements Serializable, GenericBean {
 
 	public void gerarParcelas() {
 		try {
-			Calendar calendar = Calendar.getInstance();
-			for (int i = 1; i <= promissoriaCadastro.getQtdeParcelas(); i++) {
-				calendar.setTime(promissoriaCadastro.getDataEmissao());
-				calendar.add(Calendar.MONTH, i);
-				promissoriaCadastro.setDataVencto(calendar.getTime());
-				promissoriaCadastro.setNumParcela(i);
-				promissoriaCadastro.setValorParcela(promissoriaCadastro.getValorTotal()
-						.divide(new BigDecimal(promissoriaCadastro.getQtdeParcelas())));
-				promissoriaCadastro.setValorSaldoParcela(promissoriaCadastro.getValorParcela());
-				parcelas.add(promissoriaCadastro);
+
+			if (parcelas.size() > 0) {
+				parcelas = new ArrayList<>();
 			}
-			
+			Calendar calendar = Calendar.getInstance();
+			BigDecimal valorParcela = valorTotal.divide(new BigDecimal(qtdeParcelas.toString()), 2, RoundingMode.UP);
+			Promissoria promissoria;
+
+			for (int i = 1; i <= qtdeParcelas; i++) {
+
+				promissoria = new Promissoria();
+				calendar.setTime(this.dataEmissao);
+				calendar.add(Calendar.MONTH, i);
+				promissoria.setNumPromissoria(this.numPromissoria);
+				promissoria.setQtdeParcelas(this.qtdeParcelas);
+				promissoria.setDataVencto(calendar.getTime());
+				promissoria.setNumParcela(i);
+				promissoria.setValorParcela(valorParcela);
+				promissoria.setValorSaldoParcela(valorParcela);
+				parcelas.add(promissoria);
+
+			}
+
 		} catch (Exception e) {
 			FacesUtil.addMsgError("Houve um erro ao Gerar as Parcelas!\n: " + e.getMessage());
+			e.printStackTrace();
 		}
 
 	}
