@@ -22,6 +22,7 @@
 			<h:graphicImage styleClass="icone-32X32" value="/images/titulo.png" />
 			<h1>TÍTULOS A RECEBER</h1>
 		</h:panelGrid>
+
 		<h:form id="frmCadPromissoria">
 
 			<br />
@@ -50,11 +51,12 @@
 						rendered="#{promissoriaBean.acao == 'Editar'}" update=":msgGlobal" />
 				</h:panelGrid>
 			</div>
+
 			<p:separator />
 
 			<p:tabView id="tabCadPromissoria">
 				<p:tab title="Dados Gerais">
-					<h:panelGrid columns="4">
+					<h:panelGrid columns="10">
 						<p:outputLabel value="Nº Título:" />
 						<p:inputText size="8" value="#{promissoriaBean.numPromissoria}"
 							readonly="true">
@@ -66,23 +68,18 @@
 							readonly="#{promissoriaBean.acao == 'Excluir'}">
 							<f:validateBean />
 						</pe:inputNumber>
-					</h:panelGrid>
 
-					<h:panelGrid columns="2">
 						<p:outputLabel value="Paciente:" />
-						<p:autoComplete size="55"
+						<p:autoComplete size="40"
 							placeholder="Comece a Digitar o Nome do Paciente"
-							value="#{promissoriaBean.paciente.pessoa.nome}"
-							maxResults="8" completeMethod="#{pessoaBean.complete}"
+							value="#{promissoriaBean.paciente.pessoa.nome}" maxResults="8"
+							completeMethod="#{pessoaBean.complete}"
 							readonly="#{promissoriaBean.acao == 'Excluir'}" />
-					</h:panelGrid>
 
-					<h:panelGrid columns="4">
 						<p:outputLabel value=" Data Emissão:" />
 
 						<p:calendar showOn="" mask="true" pattern="dd/mm/yyyy"
-							value="#{promissoriaBean.dataEmissao}"
-							size="9" locale="pt_BR"
+							value="#{promissoriaBean.dataEmissao}" size="9" locale="pt_BR"
 							readonly="#{promissoriaBean.acao == 'Excluir'}" />
 
 						<p:outputLabel value="Valor Total:" />
@@ -92,16 +89,20 @@
 
 					</h:panelGrid>
 					<br />
+
 					<div align="center">
 						<p:commandButton
 							actionListener="#{promissoriaBean.gerarParcelas()}"
 							readonly="#{promissoriaBean.acao == 'Excluir'}" icon="gerar-icon"
-							value="Gerar Parcelas" update=":msgGlobal :frmCadPromissoria:tabCadPromissoria:tabParcelas" />
+							value="Gerar Parcelas"
+							update=":msgGlobal :frmCadPromissoria:tabCadPromissoria:tabParcelas" />
 					</div>
 					<br />
+
 					<p:dataTable id="tabParcelas"
 						emptyMessage="Sem Registros para Visualizar."
-						value="#{promissoriaBean.parcelas}" var="parcela">
+						value="#{promissoriaBean.parcelas}" var="parcela"
+						rowStyleClass="#{parcela.numParcela mod 2 eq 0 ? 'corLinha' : null}">
 
 						<p:column headerText="Parc." style="text-align: center;width:5%;">
 							<h:outputText value="#{parcela.numParcela}" />
@@ -115,8 +116,12 @@
 							<h:outputText value="#{parcela.valorSaldoParcela}" />
 						</p:column>
 
-					</p:dataTable>
+						<p:column headerText="Vencto"
+							style="text-align: center;width:10%;">
+							<p:calendar value="#{parcela.dataVencto}" size="10" pattern="dd/mm/yyyy"/>
+						</p:column>
 
+					</p:dataTable>
 				</p:tab>
 
 				<p:tab title="Observação">

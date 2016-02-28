@@ -129,11 +129,15 @@ public class PromissoriaBean implements Serializable, GenericBean {
 	public void salvar() {
 		try {
 			PromissoriaDAO dao = new PromissoriaDAO();
-			dao.salvar(promissoriaCadastro);
+			for (int i = 0; i < parcelas.size(); i++) {
+				dao.salvar(parcelas.get(i));
+			}
 			promissoriaCadastro = new Promissoria();
+			parcelas = new ArrayList<>();
 			FacesUtil.addMsgInfo("Título Salvo com Sucesso!");
 		} catch (Exception e) {
 			FacesUtil.addMsgError("Houve um erro ao Salvar o Título!\n" + e.getMessage());
+			e.printStackTrace();
 		}
 
 	}
@@ -217,6 +221,7 @@ public class PromissoriaBean implements Serializable, GenericBean {
 				promissoria.setNumParcela(i);
 				promissoria.setValorParcela(valorParcela);
 				promissoria.setValorSaldoParcela(valorParcela);
+				promissoria.setPaciente(this.paciente);
 				parcelas.add(promissoria);
 
 			}
