@@ -74,9 +74,9 @@
 				</p:column>
 
 				<f:facet name="footer">
-					<p:button value="Novo" outcome="/pages/promissoriaCadastro"
-						icon="novo">
-						<f:param name="promissoriaAcao" value="Novo" />
+					<p:button value="Novo" outcome="#{promissoriaBean.pagina}"
+						icon="novo" >
+						<f:param name="promissoriaAcao" value="Novo"/>
 					</p:button>
 				</f:facet>
 			</p:dataTable>

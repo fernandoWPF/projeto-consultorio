@@ -11,6 +11,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import br.com.consultorio_odontologico.dao.PacienteDAO;
 import br.com.consultorio_odontologico.dao.PromissoriaDAO;
 import br.com.consultorio_odontologico.domain.Paciente;
 import br.com.consultorio_odontologico.domain.Promissoria;
@@ -21,6 +22,8 @@ import br.com.consultorio_odontologico.util.FacesUtil;
 public class PromissoriaBean implements Serializable, GenericBean {
 
 	private static final long serialVersionUID = 1L;
+
+	String pagina;
 
 	List<Promissoria> promissorias;
 	List<Promissoria> parcelas = new ArrayList<>();
@@ -118,11 +121,23 @@ public class PromissoriaBean implements Serializable, GenericBean {
 		this.id = id;
 	}
 
+	public String getPagina() {
+
+		PacienteDAO dao = new PacienteDAO();
+
+		if (dao.findAll().isEmpty()) {
+			FacesUtil.addMsgInfo("Essa operação exige pelo menos um Paciente cadastrado. Operação não realizada!");
+			return "/pages/promissoriaPesquisa";
+		} else {
+			return "/pages/promissoriaCadastro";
+		}
+
+	}
+
 	@Override
 	public void novo() {
 
 		promissoriaCadastro = new Promissoria();
-
 	}
 
 	@Override
