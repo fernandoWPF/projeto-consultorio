@@ -74,11 +74,12 @@
 				</p:column>
 
 				<f:facet name="footer">
-					<p:button value="Novo" outcome="#{promissoriaBean.pagina}"
-						icon="novo" >
+					<p:commandButton value="Novo" outcome="#{promissoriaBean.pagina}"
+						icon="novo" update=":msgGlobal">
 						<f:param name="promissoriaAcao" value="Novo"/>
-					</p:button>
+					</p:commandButton>
 				</f:facet>
+				
 			</p:dataTable>
 
 		</h:form>
