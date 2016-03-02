@@ -17,7 +17,7 @@
 	<ui:define name="conteudo">
 		<h:form>
 			<h:panelGrid columns="2">
-				<h:graphicImage styleClass="icone-32X32"  value="/images/titulo.png" />
+				<h:graphicImage styleClass="icone-32X32" value="/images/titulo.png" />
 				<h1>TÍTULOS A RECEBER</h1>
 			</h:panelGrid>
 
@@ -74,13 +74,15 @@
 				</p:column>
 
 				<f:facet name="footer">
-					<p:commandButton value="Novo" outcome="#{promissoriaBean.pagina}"
-						icon="novo" update=":msgGlobal">
-						<f:param name="promissoriaAcao" value="Novo"/>
-					</p:commandButton>
+					<p:button value="Novo" outcome="#{promissoriaBean.pagina}"
+						icon="novo">
+
+						<f:param name="promissoriaAcao" value="Novo" />
+					</p:button>
 				</f:facet>
-				
+
 			</p:dataTable>
+
 
 		</h:form>
 	</ui:define>
