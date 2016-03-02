@@ -126,7 +126,7 @@ public class PromissoriaBean implements Serializable, GenericBean {
 		PacienteDAO dao = new PacienteDAO();
 
 		if (dao.findAll().isEmpty()) {
-			FacesUtil.addMsgInfo("Essa operação exige pelo menos um Paciente cadastrado. Operação não realizada!");
+			FacesUtil.addMsgInfo("Para uma nova Promissória, é necessário ter pelo menos um Paciente cadastrado!");
 			return "/pages/promissoriaPesquisa";
 		} else {
 			return "/pages/promissoriaCadastro";
