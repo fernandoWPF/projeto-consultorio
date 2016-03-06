@@ -74,11 +74,12 @@
 				</p:column>
 
 				<f:facet name="footer">
+				<p:messages id="messages" autoUpdate="true" closable="true">
 					<p:button value="Novo" outcome="#{promissoriaBean.pagina}"
 						icon="novo">
-
 						<f:param name="promissoriaAcao" value="Novo" />
 					</p:button>
+					</p:messages>
 				</f:facet>
 
 			</p:dataTable>

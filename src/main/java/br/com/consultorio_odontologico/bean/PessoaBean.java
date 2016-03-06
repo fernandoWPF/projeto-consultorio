@@ -19,7 +19,7 @@ public class PessoaBean {
 
 		PessoaDAO dao = new PessoaDAO();
 		List<Pessoa> pessoas = new ArrayList<Pessoa>();
-		pessoas = dao.consultarPaciente(texto.toUpperCase());
+		pessoas = dao.consultar(texto.toUpperCase());
 
 		for (Pessoa p : pessoas) {
 			sugestoes.add(p.getNome());
