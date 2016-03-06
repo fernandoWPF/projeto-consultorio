@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +28,7 @@ public class Promissoria implements Serializable {
 	public Promissoria() {
 		this.paciente = new Paciente();
 	}
-
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -37,7 +38,7 @@ public class Promissoria implements Serializable {
 	private Long numPromissoria;
 	@Column(name = "num_parcela")
 	private Integer numParcela;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.REMOVE })
 	@JoinColumn(name = "id_paciente")
 	private Paciente paciente;
 	@Column(name = "data_emissao")

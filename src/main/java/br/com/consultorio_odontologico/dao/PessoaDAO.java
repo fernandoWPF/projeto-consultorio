@@ -14,7 +14,17 @@ public class PessoaDAO extends GenericDAO<Pessoa> {
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public List<Pessoa> consultar(String nome) {
+	public List<Pessoa> consultarPaciente(String nome) {
+
+		TypedQuery query = (TypedQuery) getEntityManager()
+				.createQuery("SELECT o FROM Pessoa o, Paciente p"
+						+ " WHERE UPPER(nome) " + "like ?  and p.pessoa = o");
+		query.setParameter(1, "%" + nome + "%");
+		return query.getResultList();
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<Pessoa> consultarDentista(String nome) {
 
 		TypedQuery query = (TypedQuery) getEntityManager()
 				.createQuery("SELECT o FROM Pessoa o, Dentista d"
