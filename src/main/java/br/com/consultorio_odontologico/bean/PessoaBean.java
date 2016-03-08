@@ -13,18 +13,33 @@ import br.com.consultorio_odontologico.domain.Pessoa;
 @ViewScoped
 public class PessoaBean {
 
-	public List<String> complete(String texto) {
+	public List<String> completeDentista(String texto) {
 
 		List<String> sugestoes = new ArrayList<String>();
 
 		PessoaDAO dao = new PessoaDAO();
 		List<Pessoa> pessoas = new ArrayList<Pessoa>();
-		pessoas = dao.consultar(texto.toUpperCase());
+		pessoas = dao.consultarDentista(texto.toUpperCase());
 
 		for (Pessoa p : pessoas) {
 			sugestoes.add(p.getNome());
 		}
 		return sugestoes;
 	}
+	
+	public List<String> completePaciente(String texto) {
+
+		List<String> sugestoes = new ArrayList<String>();
+
+		PessoaDAO dao = new PessoaDAO();
+		List<Pessoa> pessoas = new ArrayList<Pessoa>();
+		pessoas = dao.consultarPaciente(texto.toUpperCase());
+
+		for (Pessoa p : pessoas) {
+			sugestoes.add(p.getNome());
+		}
+		return sugestoes;
+	}
+	
 
 }

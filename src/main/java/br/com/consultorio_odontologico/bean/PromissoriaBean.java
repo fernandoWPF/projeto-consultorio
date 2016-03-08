@@ -136,8 +136,9 @@ public class PromissoriaBean implements Serializable, GenericBean {
 
 	@Override
 	public void novo() {
-
-		promissoriaCadastro = new Promissoria();
+		if (promissoriaCadastro == null) {
+			promissoriaCadastro = new Promissoria();
+		}
 	}
 
 	@Override
@@ -236,7 +237,7 @@ public class PromissoriaBean implements Serializable, GenericBean {
 				promissoria.setNumParcela(i);
 				promissoria.setValorParcela(valorParcela);
 				promissoria.setValorSaldoParcela(valorParcela);
-				promissoria.setPaciente(this.paciente);
+				promissoria.setPaciente(promissoriaCadastro.getPaciente());
 				parcelas.add(promissoria);
 
 			}

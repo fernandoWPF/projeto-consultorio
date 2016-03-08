@@ -72,8 +72,8 @@
 						<p:outputLabel value="Paciente:" />
 						<p:autoComplete size="40"
 							placeholder="Comece a Digitar o Nome do Paciente"
-							value="#{promissoriaBean.paciente.pessoa.nome}" maxResults="8"
-							completeMethod="#{pessoaBean.complete}"
+							value="#{promissoriaBean.promissoriaCadastro.paciente.pessoa.nome}" maxResults="8"
+							completeMethod="#{pessoaBean.completePaciente}"
 							readonly="#{promissoriaBean.acao == 'Excluir'}" />
 
 						<p:outputLabel value=" Data Emissão:" />
