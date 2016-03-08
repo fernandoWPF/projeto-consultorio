@@ -139,7 +139,7 @@
 						<p:outputLabel value="Proprietário:" />
 						<p:autoComplete
 							value="#{consultorioBean.consultorioCadastro.proprietario.pessoa.nome}"
-							maxResults="5" completeMethod="#{pessoaBean.complete}"
+							maxResults="5" completeMethod="#{pessoaBean.completeDentista}"
 							maxlength="50" size="35" />
 						<p:commandButton title="Nova Cidade" icon="info"
 							onclick="PF('info').show();" style="border-radius: 40px;" />

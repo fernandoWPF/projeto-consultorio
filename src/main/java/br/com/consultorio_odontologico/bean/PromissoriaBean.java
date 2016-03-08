@@ -55,9 +55,7 @@ public class PromissoriaBean implements Serializable, GenericBean {
 	}
 
 	public Paciente getPaciente() {
-		if (paciente == null) {
-			paciente = new Paciente();
-		}
+		paciente = promissoriaCadastro.getPaciente();
 		return paciente;
 	}
 
@@ -239,7 +237,6 @@ public class PromissoriaBean implements Serializable, GenericBean {
 				promissoria.setValorSaldoParcela(valorParcela);
 				promissoria.setPaciente(promissoriaCadastro.getPaciente());
 				parcelas.add(promissoria);
-
 			}
 
 		} catch (Exception e) {
