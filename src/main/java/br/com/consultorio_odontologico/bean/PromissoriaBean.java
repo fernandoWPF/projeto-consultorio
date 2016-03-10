@@ -184,6 +184,12 @@ public class PromissoriaBean implements Serializable, GenericBean {
 	@Override
 	public void carregarCadastro() {
 		try {
+
+			if (acao.equals("Novo")) {
+				PromissoriaDAO dao = new PromissoriaDAO();
+				numPromissoria = dao.consultarMaximaNumeracao() + 1;
+			}
+
 			if (id != null) {
 				PromissoriaDAO dao = new PromissoriaDAO();
 				promissoriaCadastro = dao.getById(id);
@@ -191,13 +197,9 @@ public class PromissoriaBean implements Serializable, GenericBean {
 				promissoriaCadastro = new Promissoria();
 			}
 
-			if (acao.equals("Novo")) {
-				PromissoriaDAO dao = new PromissoriaDAO();
-				numPromissoria = dao.consultarMaximaNumeracao() + 1;
-			}
-
 		} catch (Exception e) {
 			FacesUtil.addMsgError("Houve um erro ao Carregar o Titulo!\n" + e.getMessage());
+			e.printStackTrace();
 		}
 
 	}

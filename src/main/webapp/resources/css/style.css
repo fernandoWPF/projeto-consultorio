@@ -106,6 +106,16 @@
 	background-size: 100% !important;
 }
 
+.pesquisar-icon {
+	background-image: url('../images/pesquisar.png') !important;
+	background-size: 100% !important;
+}
+
+.selecionar-icon {
+	background-image: url('../images/selecionar.png') !important;
+	background-size: 100% !important;
+}
+
 .divLogin {
 	border: 1px solid !important;
 	border-color: #c0c0c0 !important;
