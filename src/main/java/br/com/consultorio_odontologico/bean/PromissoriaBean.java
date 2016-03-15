@@ -237,8 +237,9 @@ public class PromissoriaBean implements Serializable, GenericBean {
 				promissoria.setNumParcela(i);
 				promissoria.setValorParcela(valorParcela);
 				promissoria.setValorSaldoParcela(valorParcela);
-				promissoria.setPaciente(promissoriaCadastro.getPaciente());
+				promissoria.setPaciente(paciente);
 				parcelas.add(promissoria);
+				System.out.println(paciente.getPessoa().getNome());
 			}
 
 		} catch (Exception e) {
@@ -246,6 +247,10 @@ public class PromissoriaBean implements Serializable, GenericBean {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void aPaciente(Paciente paciente){
+		this.paciente = paciente;
 	}
 
 }

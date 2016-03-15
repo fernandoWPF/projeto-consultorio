@@ -12,7 +12,6 @@
 		<f:metadata>
 			<f:viewParam name="promissoriaAcao" value="#{promissoriaBean.acao}" />
 			<f:viewParam name="promissoriaCod" value="#{promissoriaBean.id}" />
-			<f:viewParam name="pacientePromissoriaCod" value="#{promissoriaBean.promissoriaCadastro.paciente.pessoa.id}" />
 			<f:event listener="#{promissoriaBean.carregarCadastro}"
 				type="preRenderView" />
 		</f:metadata>
@@ -71,9 +70,9 @@
 						</pe:inputNumber>
 
 						<p:outputLabel value="Paciente:" />
-						<p:inputText size="30"
+						<p:inputText size="30" id="fieldPaciente"
 							value="#{promissoriaBean.paciente.pessoa.nome}"
-							maxResults="8" readonly="true" />
+							readonly="true" />
 
 						<p:commandButton title="Pesquisar" icon="pesquisar-icon"
 							onclick="PF('pesquisaPaciente').show();"
@@ -158,12 +157,12 @@
 					<p:column headerText="CPF" style="text-align: center;width:18%;">
 						<h:outputText value="#{paciente.pessoa.cpf}" />
 					</p:column>
-					<p:column headerText="Opção"
-						style="text-align: center;width:18%;">
-						<p:button value="Selecionar" icon="selecionar-icon" onclick="PF('pesquisaPaciente').hide();">
-							<f:param name="pacientePromissoriaCod" value="#{paciente.id}" />
-							<f:param name="promissoriaAcao" value="Novo" />
-						</p:button>
+					<p:column headerText="Opção" style="text-align: center;width:18%;">
+						<p:commandButton value="Selecionar" icon="selecionar-icon"
+							actionListener="#{promissoriaBean.aPaciente(paciente)}"
+							onclick="PF('pesquisaPaciente').hide();"
+							update=":frmCadPromissoria:tabCadPromissoria:fieldPaciente">
+						</p:commandButton>
 					</p:column>
 
 
