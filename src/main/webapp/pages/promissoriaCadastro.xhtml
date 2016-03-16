@@ -71,8 +71,7 @@
 
 						<p:outputLabel value="Paciente:" />
 						<p:inputText size="30" id="fieldPaciente"
-							value="#{promissoriaBean.paciente.pessoa.nome}"
-							readonly="true" />
+							value="#{promissoriaBean.paciente.pessoa.nome}" readonly="true" />
 
 						<p:commandButton title="Pesquisar" icon="pesquisar-icon"
 							onclick="PF('pesquisaPaciente').show();"
@@ -140,11 +139,11 @@
 
 			</p:tabView>
 		</h:form>
+		<h:form id="pesquisaPaciente">
+			<p:dialog widgetVar="pesquisaPaciente" modal="true"
+				appendTo="@(body)" header="Selecionando Paciente" draggable="false"
+				resizable="false" width="990">
 
-		<p:dialog widgetVar="pesquisaPaciente" modal="true" appendTo="@(body)"
-			header="Selecionando Paciente" draggable="false" resizable="false"
-			width="990">
-			<h:form id="pesquisaPaciente">
 
 				<p:dataTable emptyMessage="Sem Registros para Visualizar."
 					value="#{pacienteBean.pacientes}" var="paciente">
@@ -159,7 +158,7 @@
 					</p:column>
 					<p:column headerText="Opção" style="text-align: center;width:18%;">
 						<p:commandButton value="Selecionar" icon="selecionar-icon"
-							actionListener="#{promissoriaBean.aPaciente(paciente)}"
+							actionListener="#{promissoriaBean.paciente(paciente)}"
 							onclick="PF('pesquisaPaciente').hide();"
 							update=":frmCadPromissoria:tabCadPromissoria:fieldPaciente">
 						</p:commandButton>
@@ -167,9 +166,8 @@
 
 
 				</p:dataTable>
-			</h:form>
-		</p:dialog>
-
+			</p:dialog>
+		</h:form>
 	</ui:define>
 
 </ui:composition>

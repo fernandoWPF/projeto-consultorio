@@ -55,12 +55,12 @@ public class PromissoriaBean implements Serializable, GenericBean {
 	}
 
 	public Paciente getPaciente() {
-		paciente = promissoriaCadastro.getPaciente();
 		return paciente;
 	}
 
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
+		FacesUtil.addMsgInfo(paciente.getPessoa().getNome());
 	}
 
 	public Date getDataEmissao() {
@@ -239,7 +239,7 @@ public class PromissoriaBean implements Serializable, GenericBean {
 				promissoria.setValorSaldoParcela(valorParcela);
 				promissoria.setPaciente(paciente);
 				parcelas.add(promissoria);
-				System.out.println(paciente.getPessoa().getNome());
+				
 			}
 
 		} catch (Exception e) {
@@ -247,10 +247,6 @@ public class PromissoriaBean implements Serializable, GenericBean {
 			e.printStackTrace();
 		}
 
-	}
-	
-	public void aPaciente(Paciente paciente){
-		this.paciente = paciente;
 	}
 
 }
