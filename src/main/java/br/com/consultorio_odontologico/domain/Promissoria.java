@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tbPromissoria")
@@ -28,7 +29,7 @@ public class Promissoria implements Serializable {
 	public Promissoria() {
 		this.paciente = new Paciente();
 	}
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -41,26 +42,24 @@ public class Promissoria implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.REMOVE })
 	@JoinColumn(name = "id_paciente")
 	private Paciente paciente;
+	@NotNull(message = "Data de Emissão deve Ser Preenchida!")
 	@Column(name = "data_emissao")
 	private Date dataEmissao;
 	@Column(name = "data_vencto")
 	private Date dataVencto;
-	@Column(name = "valor_total", precision = 10, scale = 6)
+	@NotNull(message = "Valor Total deve Ser Preenchido!")
+	@Column(name = "valor_total", precision = 10, scale = 2)
 	private BigDecimal valorTotal;
-	@Column(name = "valor_saldo", precision = 10, scale = 6)
+	@Column(name = "valor_saldo", precision = 10, scale = 2)
 	private BigDecimal valorSaldo;
-	@Column(name = "valor_parcela", precision = 10, scale = 6)
+	@Column(name = "valor_parcela", precision = 10, scale = 2)
 	private BigDecimal valorParcela;
-	@Column(name = "valor_saldo_parcela", precision = 10, scale = 6)
+	@Column(name = "valor_saldo_parcela", precision = 10, scale = 2)
 	private BigDecimal valorSaldoParcela;
-
-	public BigDecimal getValorParcela() {
-		return valorParcela;
-	}
-
 	@Enumerated(EnumType.STRING)
 	@Column(name = "status_promissoria", length = 15)
 	private StatusPromissoria statusPromissoria;
+	@NotNull(message = "Quantidade de Parcelas deve Ser Preenchido!")
 	@Column(name = "qtde_pacelas")
 	private Integer qtdeParcelas;
 	private String observacao;
@@ -138,6 +137,10 @@ public class Promissoria implements Serializable {
 
 	public StatusPromissoria getStatusPromissoria() {
 		return statusPromissoria;
+	}
+
+	public BigDecimal getValorParcela() {
+		return valorParcela;
 	}
 
 	public void setValorParcela(BigDecimal valorParcela) {

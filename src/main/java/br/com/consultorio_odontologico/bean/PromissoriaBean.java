@@ -255,6 +255,9 @@ public class PromissoriaBean implements Serializable, GenericBean {
 				promissoria.setNumPromissoria(this.numPromissoria);
 				promissoria.setQtdeParcelas(this.qtdeParcelas);
 				promissoria.setDataVencto(calendar.getTime());
+				promissoria.setDataEmissao(dataEmissao);
+				promissoria.setValorTotal(valorTotal);
+				promissoria.setValorSaldo(valorTotal);
 				promissoria.setNumParcela(i);
 				promissoria.setValorParcela(valorParcela);
 				promissoria.setValorSaldoParcela(valorParcela);

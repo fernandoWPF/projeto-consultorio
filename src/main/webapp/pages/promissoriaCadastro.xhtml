@@ -37,7 +37,7 @@
 					<p:commandButton value="Salvar" title="Salvar" icon="salvar"
 						actionListener="#{promissoriaBean.salvar}"
 						rendered="#{promissoriaBean.acao == 'Novo'}"
-						update=":msgGlobal :frmCadPromissoria" />
+						update=":msgGlobal :frmCadPromissoria:tabCadPromissoria" />
 
 					<p:button value="Voltar" title="Voltar" icon="voltar"
 						outcome="/pages/promissoriaPesquisa.xhtml" />
@@ -86,12 +86,16 @@
 
 						<p:calendar showOn="" mask="true" pattern="dd/mm/yyyy"
 							value="#{promissoriaBean.dataEmissao}" size="9" locale="pt_BR"
-							readonly="#{promissoriaBean.acao == 'Excluir'}" />
+							readonly="#{promissoriaBean.acao == 'Excluir'}">
+							<f:validateBean />
+						</p:calendar>
 
 						<p:outputLabel value="Valor Total:" />
 						<pe:inputNumber decimalPlaces="2" size="10"
 							value="#{promissoriaBean.valorTotal}"
-							readonly="#{promissoriaBean.acao == 'Excluir'}" />
+							readonly="#{promissoriaBean.acao == 'Excluir'}">
+							<f:validateBean />
+						</pe:inputNumber>
 
 					</h:panelGrid>
 					<br />
