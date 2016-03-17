@@ -139,35 +139,35 @@
 
 			</p:tabView>
 		</h:form>
-		<h:form id="pesquisaPaciente">
-			<p:dialog widgetVar="pesquisaPaciente" modal="true"
-				appendTo="@(body)" header="Selecionando Paciente" draggable="false"
-				resizable="false" width="990">
 
 
-				<p:dataTable emptyMessage="Sem Registros para Visualizar."
-					value="#{pacienteBean.pacientes}" var="paciente">
-
-					<p:column headerText="Nome" sortBy="#{paciente.pessoa.nome}"
-						filterBy="#{paciente.pessoa.nome}" style="text-align: center;">
-						<h:outputText value="#{paciente.pessoa.nome}" />
-					</p:column>
-
-					<p:column headerText="CPF" style="text-align: center;width:18%;">
-						<h:outputText value="#{paciente.pessoa.cpf}" />
-					</p:column>
-					<p:column headerText="Opção" style="text-align: center;width:18%;">
-						<p:commandButton value="Selecionar" icon="selecionar-icon"
-							actionListener="#{promissoriaBean.paciente(paciente)}"
-							onclick="PF('pesquisaPaciente').hide();"
-							update=":frmCadPromissoria:tabCadPromissoria:fieldPaciente">
-						</p:commandButton>
-					</p:column>
+		<p:dialog widgetVar="pesquisaPaciente" modal="true" appendTo="@(body)"
+			header="Selecionando Paciente" draggable="false" resizable="false"
+			width="990">
 
 
-				</p:dataTable>
-			</p:dialog>
-		</h:form>
+			<p:dataTable emptyMessage="Sem Registros para Visualizar."
+				value="#{promissoriaBean.pacientes}" var="paciente">
+
+				<p:column headerText="Nome" sortBy="#{paciente.pessoa.nome}"
+					filterBy="#{paciente.pessoa.nome}" style="text-align: center;">
+					<h:outputText value="#{paciente.pessoa.nome}" />
+				</p:column>
+
+				<p:column headerText="CPF" style="text-align: center;width:18%;">
+					<h:outputText value="#{paciente.pessoa.cpf}" />
+				</p:column>
+				<p:column headerText="Opção" style="text-align: center;width:18%;">
+					<p:commandButton value="Selecionar" icon="selecionar-icon"
+						actionListener="#{promissoriaBean.adicionaPaciente(paciente)}"
+						update=":frmCadPromissoria:tabCadPromissoria:fieldPaciente"
+						onclick="PF('pesquisaPaciente').hide();">
+					</p:commandButton>
+				</p:column>
+
+
+			</p:dataTable>
+		</p:dialog>
 	</ui:define>
 
 </ui:composition>

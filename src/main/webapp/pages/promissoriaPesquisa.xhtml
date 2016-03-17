@@ -27,7 +27,7 @@
 				<p:column headerText="Paciente"
 					sortBy="#{promissoria.paciente.pessoa.nome}"
 					filterBy="#{promissoria.paciente.pessoa.nome}"
-					style="text-align: center;width:36%;">
+					style="text-align: center;width:35%;">
 					<h:outputText value="#{promissoria.paciente.pessoa.nome}" />
 				</p:column>
 
@@ -47,15 +47,15 @@
 
 				<p:column headerText="Valor" sortBy="#{promissoria.valorTotal}"
 					style="text-align: center;width:10%;">
-					<h:outputText value="#{promissoria.valorTotal}" />
+					<h:outputText value="#{promissoria.valorParcela}" />
 				</p:column>
 
 				<p:column headerText="Saldo" sortBy="#{promissoria.valorSaldo}"
 					style="text-align: center;width:10%;">
-					<h:outputText value="#{promissoria.valorSaldo}" />
+					<h:outputText value="#{promissoria.valorSaldoParcela}" />
 				</p:column>
 
-				<p:column headerText="Opções" style="text-align: center;width:19%;">
+				<p:column headerText="Opções" style="text-align: center;width:35%;">
 					<p:button value="Excluir" outcome="/pages/promissoriaCadastro"
 						icon="excluir">
 						<f:param name="promissoriaAcao" value="Excluir" />

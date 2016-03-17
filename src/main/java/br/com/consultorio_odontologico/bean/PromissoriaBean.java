@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -27,16 +28,27 @@ public class PromissoriaBean implements Serializable, GenericBean {
 
 	List<Promissoria> promissorias;
 	List<Promissoria> parcelas = new ArrayList<>();
+	List<Paciente> pacientes = new ArrayList<>();
 
 	Promissoria promissoriaCadastro;
+	Paciente paciente;
+
 	Long numPromissoria;
 	Integer qtdeParcelas;
-	Paciente paciente;
+
 	Date dataEmissao;
 	BigDecimal valorTotal;
 
-	private String acao;
-	private Long id;
+	String acao;
+	Long id;
+
+	public Paciente getPaciente() {
+		return paciente;
+	}
+
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
+	}
 
 	public Long getNumPromissoria() {
 		return numPromissoria;
@@ -54,13 +66,12 @@ public class PromissoriaBean implements Serializable, GenericBean {
 		this.qtdeParcelas = qtdeParcelas;
 	}
 
-	public Paciente getPaciente() {
-		return paciente;
+	public List<Paciente> getPacientes() {
+		return pacientes;
 	}
 
-	public void setPaciente(Paciente paciente) {
-		this.paciente = paciente;
-		FacesUtil.addMsgInfo(paciente.getPessoa().getNome());
+	public void setPacientes(List<Paciente> pacientes) {
+		this.pacientes = pacientes;
 	}
 
 	public Date getDataEmissao() {
@@ -204,6 +215,16 @@ public class PromissoriaBean implements Serializable, GenericBean {
 
 	}
 
+	@PostConstruct
+	public void carregaPacientes() {
+		try {
+			PacienteDAO dao = new PacienteDAO();
+			pacientes = dao.findAll();
+		} catch (Exception e) {
+			FacesUtil.addMsgError("Houve um erro ao Carregar lista com os Pacientes\n: " + e.getMessage());
+		}
+	}
+
 	@Override
 	public void editar() {
 		try {
@@ -239,7 +260,7 @@ public class PromissoriaBean implements Serializable, GenericBean {
 				promissoria.setValorSaldoParcela(valorParcela);
 				promissoria.setPaciente(paciente);
 				parcelas.add(promissoria);
-				
+
 			}
 
 		} catch (Exception e) {
@@ -247,6 +268,10 @@ public class PromissoriaBean implements Serializable, GenericBean {
 			e.printStackTrace();
 		}
 
+	}
+
+	public void adicionaPaciente(Paciente paciente) {
+		this.paciente = paciente;
 	}
 
 }
