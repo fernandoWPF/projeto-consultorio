@@ -38,13 +38,13 @@
 				</p:column>
 
 				<p:column headerText="Opções" style="text-align: center;width:25%;">
-					<p:button value="Excluir" outcome="/pages/pacienteCadastro"
-						icon="excluir">
+					<p:button title="Excluir" outcome="/pages/pacienteCadastro"
+						icon="excluir" styleClass="botaoOpcoes">
 						<f:param name="pacienteAcao" value="Excluir" />
 						<f:param name="pacienteCod" value="#{paciente.id}" />
 					</p:button>
-					<p:button value="Editar" outcome="/pages/pacienteCadastro"
-						icon="editar">
+					<p:button title="Editar" outcome="/pages/pacienteCadastro"
+						icon="editar" styleClass="botaoOpcoes">
 						<f:param name="pacienteAcao" value="Editar" />
 						<f:param name="pacienteCod" value="#{paciente.id}" />
 					</p:button>

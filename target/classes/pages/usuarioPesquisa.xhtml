@@ -29,24 +29,23 @@
 					<h:outputText value="#{usuario.login}" />
 				</p:column>
 
-				
+
 
 				<p:column headerText="Opções" style="text-align: center;width:25%;">
-					<p:button value="Excluir" outcome="/pages/usuarioCadastro"
-						icon="excluir">
+					<p:button title="Excluir" outcome="/pages/usuarioCadastro"
+						icon="excluir" styleClass="botaoOpcoes">
 						<f:param name="usuarioAcao" value="Excluir" />
 						<f:param name="usuarioCod" value="#{usuario.id}" />
 					</p:button>
-					<p:button value="Editar" outcome="/pages/usuarioCadastro"
-						icon="editar">
+					<p:button title="Editar" outcome="/pages/usuarioCadastro"
+						icon="editar" styleClass="botaoOpcoes">
 						<f:param name="usuarioAcao" value="Editar" />
 						<f:param name="usuarioCod" value="#{usuario.id}" />
 					</p:button>
 				</p:column>
-				
+
 				<f:facet name="footer">
-					<p:button value="Novo" outcome="/pages/usuarioCadastro"
-						icon="novo">
+					<p:button value="Novo" outcome="/pages/usuarioCadastro" icon="novo">
 						<f:param name="usuarioAcao" value="Novo" />
 					</p:button>
 				</f:facet>

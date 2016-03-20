@@ -8,7 +8,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -39,8 +38,8 @@ public class PromissoriaBean implements Serializable, GenericBean {
 	Date dataEmissao;
 	BigDecimal valorTotal;
 
-	String acao;
-	Long id;
+	private String acao;
+	private Long id;
 
 	public Paciente getPaciente() {
 		return paciente;
@@ -182,6 +181,7 @@ public class PromissoriaBean implements Serializable, GenericBean {
 
 	@Override
 	public void carregarPesquisa() {
+
 		try {
 			PromissoriaDAO dao = new PromissoriaDAO();
 			promissorias = dao.findAll();
@@ -204,6 +204,11 @@ public class PromissoriaBean implements Serializable, GenericBean {
 			if (id != null) {
 				PromissoriaDAO dao = new PromissoriaDAO();
 				promissoriaCadastro = dao.getById(id);
+				paciente = promissoriaCadastro.getPaciente();
+				numPromissoria = promissoriaCadastro.getNumPromissoria();
+				dataEmissao = promissoriaCadastro.getDataEmissao();
+				qtdeParcelas = promissoriaCadastro.getQtdeParcelas();
+				valorTotal = promissoriaCadastro.getValorParcela();
 			} else {
 				promissoriaCadastro = new Promissoria();
 			}
@@ -215,7 +220,6 @@ public class PromissoriaBean implements Serializable, GenericBean {
 
 	}
 
-	@PostConstruct
 	public void carregaPacientes() {
 		try {
 			PacienteDAO dao = new PacienteDAO();

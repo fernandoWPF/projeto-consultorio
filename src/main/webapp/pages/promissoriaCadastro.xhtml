@@ -6,6 +6,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:pe="http://primefaces.org/ui/extensions">
+
 <ui:composition template="/templates/estrutura.xhtml">
 
 	<ui:define name="metadata">
@@ -18,13 +19,11 @@
 	</ui:define>
 
 	<ui:define name="conteudo">
-		<h:panelGrid columns="2">
-			<h:graphicImage styleClass="icone-32X32" value="/images/titulo.png" />
-			<h1>TÍTULOS A RECEBER</h1>
-		</h:panelGrid>
-
 		<h:form id="frmCadPromissoria">
-
+			<h:panelGrid columns="2">
+				<h:graphicImage styleClass="icone-32X32" value="/images/titulo.png" />
+				<h1>TÍTULOS A RECEBER</h1>
+			</h:panelGrid>
 			<br />
 			<div align="center">
 				<h:panelGrid columns="5">
@@ -103,14 +102,13 @@
 					<div align="center">
 						<p:commandButton
 							actionListener="#{promissoriaBean.gerarParcelas()}"
-							readonly="#{promissoriaBean.acao == 'Excluir'}" icon="gerar-icon"
-							value="Gerar Parcelas"
-							update=":msgGlobal :frmCadPromissoria:tabCadPromissoria:tabParcelas" />
+							icon="gerar-icon" value="Gerar Parcelas"
+							update=":msgGlobal :frmCadPromissoria:tabCadPromissoria:tabParcelas"
+							readonly="#{promissoriaBean.acao == 'Excluir'}" />
 					</div>
 					<br />
 
-					<p:dataTable id="tabParcelas"
-						emptyMessage="Sem Registros para Visualizar."
+					<p:dataTable id="tabParcelas" emptyMessage=""
 						value="#{promissoriaBean.parcelas}" var="parcela"
 						rowStyleClass="#{parcela.numParcela mod 2 eq 0 ? 'corLinha' : null}">
 
@@ -150,8 +148,7 @@
 			width="990">
 
 
-			<p:dataTable emptyMessage="Sem Registros para Visualizar."
-				value="#{promissoriaBean.pacientes}" var="paciente">
+			<p:dataTable value="#{promissoriaBean.pacientes}" var="paciente">
 
 				<p:column headerText="Nome" sortBy="#{paciente.pessoa.nome}"
 					filterBy="#{paciente.pessoa.nome}" style="text-align: center;">

@@ -27,7 +27,7 @@
 				<p:column headerText="Paciente"
 					sortBy="#{promissoria.paciente.pessoa.nome}"
 					filterBy="#{promissoria.paciente.pessoa.nome}"
-					style="text-align: center;width:35%;">
+					style="text-align: center;width:45%;">
 					<h:outputText value="#{promissoria.paciente.pessoa.nome}" />
 				</p:column>
 
@@ -40,10 +40,6 @@
 					<h:outputText value="#{promissoria.numParcela}" />
 				</p:column>
 
-				<p:column headerText="Qtde. Parc."
-					style="text-align: center;width:5%;">
-					<h:outputText value="#{promissoria.qtdeParcelas}" />
-				</p:column>
 
 				<p:column headerText="Valor" sortBy="#{promissoria.valorTotal}"
 					style="text-align: center;width:10%;">
@@ -55,30 +51,36 @@
 					<h:outputText value="#{promissoria.valorSaldoParcela}" />
 				</p:column>
 
-				<p:column headerText="Opções" style="text-align: center;width:35%;">
-					<p:button value="Excluir" outcome="/pages/promissoriaCadastro"
-						icon="excluir">
+				<p:column headerText="Vencimento" sortBy="#{promissoria.dataVencto}"
+					style="text-align: center;width:15%;">
+					<p:calendar value="#{promissoria.dataVencto}" size="7"
+						locale="pt_BR" showOn="" mask="true" readonly="true" />
+				</p:column>
+
+				<p:column headerText="Opções" style="text-align: center;width:15%;">
+					<p:button title="Excluir" outcome="/pages/promissoriaCadastro"
+						icon="excluir" styleClass="botaoOpcoes">
 						<f:param name="promissoriaAcao" value="Excluir" />
 						<f:param name="promissoriaCod" value="#{promissoria.id}" />
 					</p:button>
-					<p:button value="Editar" outcome="/pages/promissoriaCadastro"
-						icon="editar">
+					<p:button title="Editar" outcome="/pages/promissoriaCadastro"
+						icon="editar" styleClass="botaoOpcoes">
 						<f:param name="promissoriaAcao" value="Editar" />
 						<f:param name="promissoriaCod" value="#{promissoria.id}" />
 					</p:button>
-					<p:button value="Receber" outcome="/pages/promissoriaCadastro"
-						icon="editar">
+					<p:button title="Receber" outcome="/pages/promissoriaCadastro"
+						icon="receber-icon" styleClass="botaoOpcoes">
 						<f:param name="promissoriaAcao" value="Receber" />
 						<f:param name="promissoriaCod" value="#{promissoria.id}" />
 					</p:button>
 				</p:column>
 
 				<f:facet name="footer">
-				<p:messages id="messages" autoUpdate="true" closable="true">
-					<p:button value="Novo" outcome="#{promissoriaBean.pagina}"
-						icon="novo">
-						<f:param name="promissoriaAcao" value="Novo" />
-					</p:button>
+					<p:messages id="messages" autoUpdate="true" closable="true">
+						<p:button value="Novo" outcome="#{promissoriaBean.pagina}"
+							icon="novo">
+							<f:param name="promissoriaAcao" value="Novo" />
+						</p:button>
 					</p:messages>
 				</f:facet>
 

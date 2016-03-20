@@ -116,6 +116,16 @@
 	background-size: 100% !important;
 }
 
+.receber-icon {
+	background-image: url('../images/receber.png') !important;
+	background-size: 100% !important;
+}
+
+.botaoOpcoes{
+	width: 30px !important;
+}
+
+
 .divLogin {
 	border: 1px solid !important;
 	border-color: #c0c0c0 !important;
