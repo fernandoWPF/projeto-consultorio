@@ -70,7 +70,7 @@
 
 						<p:outputLabel value="Paciente:" />
 						<p:inputText size="30" id="fieldPaciente"
-							value="#{promissoriaBean.paciente.pessoa.nome}" readonly="true" />
+							value="#{promissoriaBean.promissoriaCadastro.paciente.pessoa.nome}" readonly="true" />
 
 						<p:commandButton title="Pesquisar" icon="pesquisar-icon"
 							onclick="PF('pesquisaPaciente').show();"
@@ -104,13 +104,14 @@
 							actionListener="#{promissoriaBean.gerarParcelas()}"
 							icon="gerar-icon" value="Gerar Parcelas"
 							update=":msgGlobal :frmCadPromissoria:tabCadPromissoria:tabParcelas"
-							readonly="#{promissoriaBean.acao == 'Excluir'}" />
+							rendered="#{promissoriaBean.acao == 'Novo'}" />
 					</div>
 					<br />
 
 					<p:dataTable id="tabParcelas" emptyMessage=""
 						value="#{promissoriaBean.parcelas}" var="parcela"
-						rowStyleClass="#{parcela.numParcela mod 2 eq 0 ? 'corLinha' : null}">
+						rowStyleClass="#{parcela.numParcela mod 2 eq 0 ? 'corLinha' : null}"
+						rendered="#{promissoriaBean.acao == 'Novo'}">
 
 						<p:column headerText="Parc." style="text-align: center;width:5%;">
 							<h:outputText value="#{parcela.numParcela}" />
@@ -160,7 +161,7 @@
 				</p:column>
 				<p:column headerText="Opção" style="text-align: center;width:18%;">
 					<p:commandButton value="Selecionar" icon="selecionar-icon"
-						actionListener="#{promissoriaBean.adicionaPaciente(paciente)}"
+						actionListener="#{promissoriaBean.promissoriaCadastro.paciente}"
 						update=":frmCadPromissoria:tabCadPromissoria:fieldPaciente"
 						onclick="PF('pesquisaPaciente').hide();">
 					</p:commandButton>
