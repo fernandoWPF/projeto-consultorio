@@ -146,3 +146,22 @@
 .corLinha{
 	background: white !important;
 }
+
+.ui-outputlabel{
+	font-weight: bold !important;
+	text-align: right !important;
+}
+
+.ui-selectoneradio{
+	font-weight: bold !important;
+	color: #333e99;
+}
+
+.ui-panelmenu .ui-menuitem-link{
+	font-weight: bold !important;
+}
+
+.ui-datatable tbody td{
+	color: #0000a0 !important;
+	font-weight: bold !important;
+}

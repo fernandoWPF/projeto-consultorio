@@ -21,7 +21,8 @@
 	<ui:define name="conteudo">
 		<h:form id="frmCadPaciente">
 			<h:panelGrid columns="2">
-				<h:graphicImage styleClass="icone-32X32" value="/images/paciente.png" />
+				<h:graphicImage styleClass="icone-32X32"
+					value="/images/paciente.png" />
 				<h1>PACIENTES</h1>
 			</h:panelGrid>
 			<div align="center">
@@ -53,7 +54,7 @@
 			<p:separator />
 
 			<p:tabView id="tabCadPaciente">
-				<p:tab title="Dados Gerais">
+				<p:tab title="Dados Cadastrais">
 					<h:panelGrid columns="2">
 						<p:outputLabel value="Nome Completo:" />
 						<p:inputText size="55" maxlength="255"
@@ -61,9 +62,7 @@
 							readonly="#{pacienteBean.acao == 'Excluir'}">
 							<f:validateBean />
 						</p:inputText>
-					</h:panelGrid>
 
-					<h:panelGrid columns="7">
 						<p:outputLabel value="CPF:" />
 						<p:inputMask mask="999.999.999-99" size="14"
 							value="#{pacienteBean.pacienteCadastro.pessoa.cpf}"
@@ -77,39 +76,46 @@
 
 						<p:outputLabel value="Sexo:" />
 
-						<p:selectOneMenu effect="fold"
-							value="#{pacienteBean.pacienteCadastro.pessoa.sexo}"
-							disabled="#{pacienteBean.acao == 'Excluir'}">
-							<f:selectItem itemLabel="Sexo" itemValue="" />
+						<p:selectOneRadio
+							value="#{pacienteBean.pacienteCadastro.pessoa.sexo}">
 							<f:selectItem itemLabel="FEMININO" itemValue="F" />
 							<f:selectItem itemLabel="MASCULINO" itemValue="M" />
-						</p:selectOneMenu>
-					</h:panelGrid>
+						</p:selectOneRadio>
 
-					<h:panelGrid columns="6">
 						<p:outputLabel value="Data de Nascimento:" />
 						<p:calendar showOn="" mask="true"
 							value="#{pacienteBean.pacienteCadastro.pessoa.dataNascimento}"
 							size="8" locale="pt_BR"
 							readonly="#{pacienteBean.acao == 'Excluir'}" />
 						<p:outputLabel value="Idade:" />
-						<p:inputMask mask="99" maxlength="2" size="4"
+						<pe:inputNumber size="4" maxlength="2" decimalPlaces="0"
 							value="#{pacienteBean.pacienteCadastro.pessoa.idade}"
 							readonly="#{pacienteBean.acao == 'Excluir'}">
 							<f:validateBean />
-						</p:inputMask>
+						</pe:inputNumber>
 						<p:outputLabel value="Est.Civil:" />
-						<p:selectOneMenu effect="fold"
+						<p:selectOneRadio
 							value="#{pacienteBean.pacienteCadastro.pessoa.estadoCivil}"
 							disabled="#{pacienteBean.acao == 'Excluir'}">
-							<f:selectItem itemLabel="Est. Civil" itemValue="" />
 							<f:selectItems value="#{estadoCivil.estadoCivil}" />
 							<f:validateBean />
-						</p:selectOneMenu>
+						</p:selectOneRadio>
+						<p:outputLabel value="Status Paciente:" />
+						<p:selectOneRadio
+							value="#{pacienteBean.pacienteCadastro.statusPaciente}"
+							disabled="#{pacienteBean.acao == 'Excluir'}">
+							<f:selectItems value="#{statusPacienteBean.statusPacientes}" />
+						</p:selectOneRadio>
+						<p:outputLabel value="Retorno de Prevenção:" />
+						<p:calendar
+							value="#{pacienteBean.pacienteCadastro.dataRetornoPrevencao}"
+							size="8" locale="pt_BR"
+							readonly="#{pacienteBean.acao == 'Excluir'}" />
 					</h:panelGrid>
+				</p:tab>
 
-
-					<h:panelGrid columns="4">
+				<p:tab title="Endereço">
+					<h:panelGrid columns="2">
 						<p:outputLabel value="Endereço:" />
 						<p:inputText maxlength="200" size="55"
 							value="#{pacienteBean.pacienteCadastro.pessoa.endereco}"
@@ -118,10 +124,7 @@
 						<p:inputText maxlength="6" size="6"
 							value="#{pacienteBean.pacienteCadastro.pessoa.numero}"
 							readonly="#{pacienteBean.acao == 'Excluir'}" />
-					</h:panelGrid>
-
-					<h:panelGrid columns="6">
-						<p:outputLabel value="Compl.:" />
+						<p:outputLabel value="Complemento:" />
 						<p:inputText maxlength="50" size="12"
 							value="#{pacienteBean.pacienteCadastro.pessoa.complemento}"
 							readonly="#{pacienteBean.acao == 'Excluir'}" />
@@ -133,11 +136,7 @@
 						<p:inputMask mask="99999-999" maxlength="8" size="10"
 							value="#{pacienteBean.pacienteCadastro.pessoa.cep}"
 							readonly="#{pacienteBean.acao == 'Excluir'}" />
-					</h:panelGrid>
-
-					<h:panelGrid columns="5">
 						<p:outputLabel value="UF:" />
-
 						<p:selectOneMenu effect="fold"
 							value="#{pacienteBean.pacienteCadastro.pessoa.cidade.uf}"
 							disabled="#{pacienteBean.acao == 'Excluir'}">
@@ -145,21 +144,21 @@
 							<f:selectItems value="#{UF.uf}" />
 							<f:validateBean />
 						</p:selectOneMenu>
-
-
-
 						<p:outputLabel value="Cidade:" />
-						<p:autoComplete
-							value="#{dentistaBean.dentistaCadastro.pessoa.cidade.nome}"
-							maxResults="5" completeMethod="#{cidadeBean.complete}"
-							maxlength="50" size="19"
-							readonly="#{dentistaBean.acao == 'Excluir'}" />
-						<p:commandButton title="Nova Cidade" icon="addCidade"
-							onclick="PF('cadCidade').show();" style="border-radius: 40px;" />
+						<h:panelGrid columns="2">
+							<p:autoComplete
+								value="#{pacienteBean.pacienteCadastro.pessoa.cidade.nome}"
+								maxResults="5" completeMethod="#{cidadeBean.complete}"
+								maxlength="50" size="19"
+								readonly="#{dentistaBean.acao == 'Excluir'}" />
+							<p:commandButton title="Nova Cidade" icon="addCidade"
+								onclick="PF('cadCidade').show();" />
+						</h:panelGrid>
 					</h:panelGrid>
+				</p:tab>
 
-
-					<h:panelGrid columns="6">
+				<p:tab title="Contato">
+					<h:panelGrid columns="2">
 						<p:outputLabel value="Telefone:" />
 						<p:inputMask mask="(99) 9999-9999" maxlength="19" size="13"
 							value="#{pacienteBean.pacienteCadastro.pessoa.telefone}"
@@ -173,9 +172,10 @@
 							value="#{pacienteBean.pacienteCadastro.pessoa.email}"
 							readonly="#{pacienteBean.acao == 'Excluir'}" />
 					</h:panelGrid>
+				</p:tab>
 
-
-					<h:panelGrid columns="4">
+				<p:tab title="Filiação">
+					<h:panelGrid columns="2">
 						<p:outputLabel value="Nome da Mãe:" />
 						<p:inputText maxlength="255" size="32"
 							value="#{pacienteBean.pacienteCadastro.nomeMae}"
@@ -184,9 +184,10 @@
 						<p:inputText maxlength="255" size="32"
 							value="#{pacienteBean.pacienteCadastro.nomePai}"
 							readonly="#{pacienteBean.acao == 'Excluir'}" />
-
 					</h:panelGrid>
-					<h:panelGrid columns="6">
+				</p:tab>
+				<p:tab title="Educação e Trabalho">
+					<h:panelGrid columns="2">
 						<p:outputLabel value="Escolaridade:" />
 						<p:selectOneMenu effect="fold"
 							value="#{pacienteBean.pacienteCadastro.escolaridade}"
@@ -198,8 +199,7 @@
 						<p:inputText maxlength="100" size="30"
 							value="#{pacienteBean.pacienteCadastro.localTrabalho}"
 							readonly="#{pacienteBean.acao == 'Excluir'}" />
-					</h:panelGrid>
-					<h:panelGrid columns="4">
+
 						<p:outputLabel value="Profissão:" />
 						<p:inputText maxlength="100" size="30"
 							value="#{pacienteBean.pacienteCadastro.profissao}"
@@ -209,24 +209,7 @@
 							value="#{pacienteBean.pacienteCadastro.rendaMensal}"
 							readonly="#{pacienteBean.acao == 'Excluir'}" />
 					</h:panelGrid>
-
-					<h:panelGrid columns="4">
-						<p:outputLabel value="Status Paciente:" />
-						<p:selectOneMenu effect="fold"
-							value="#{pacienteBean.pacienteCadastro.statusPaciente}"
-							disabled="#{pacienteBean.acao == 'Excluir'}">
-							<f:selectItem itemValue="" itemLabel="Status" />
-							<f:selectItems value="#{statusPacienteBean.statusPacientes}" />
-						</p:selectOneMenu>
-						<p:outputLabel value="Retorno de Prevenção:" />
-						<p:calendar
-							value="#{pacienteBean.pacienteCadastro.dataRetornoPrevencao}"
-							size="8" locale="pt_BR"
-							readonly="#{pacienteBean.acao == 'Excluir'}" />
-					</h:panelGrid>
-
 				</p:tab>
-
 				<p:tab title="Observações">
 					<p:inputTextarea rows="22" cols="130" autoResize="false"
 						title="Observações"
