@@ -15,6 +15,8 @@
 			<f:viewParam name="promissoriaCod" value="#{promissoriaBean.id}" />
 			<f:event listener="#{promissoriaBean.carregarCadastro}"
 				type="preRenderView" />
+			<f:event listener="#{promissoriaBean.carregarPesquisa}"
+				type="preRenderView" />
 		</f:metadata>
 	</ui:define>
 
@@ -70,7 +72,8 @@
 
 						<p:outputLabel value="Paciente:" />
 						<p:inputText size="30" id="fieldPaciente"
-							value="#{promissoriaBean.promissoriaCadastro.paciente.pessoa.nome}" readonly="true" />
+							value="#{promissoriaBean.promissoriaCadastro.paciente.pessoa.nome}"
+							readonly="true" />
 
 						<p:commandButton title="Pesquisar" icon="pesquisar-icon"
 							onclick="PF('pesquisaPaciente').show();"

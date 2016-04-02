@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -180,6 +181,7 @@ public class PromissoriaBean implements Serializable, GenericBean {
 	}
 
 	@Override
+	@PostConstruct
 	public void carregarPesquisa() {
 
 		try {
